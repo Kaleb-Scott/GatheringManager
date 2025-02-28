@@ -1,0 +1,129 @@
+﻿Gathering Manager Requirements
+
+Team Members:
+Kaleb Scott
+Benjamin Johnson
+Sorelle Tatiana Djuissi Macho
+
+Description:
+The gathering manager website is a web-based application intended to assist in the management of guest lists and attendance at gatherings. This system is intended to assist in planning and managing gatherings of any size, from small birthday parties to large events held by universities and organizations. It will provide a centralized location for hosts to create, view statistics for, and manage their scheduled gatherings. It will also serve as a centralized hub for guests to find, join, and sign into gatherings and events.
+
+Requirements:
+
+1. Name: login
+Type: Functional
+Summary: Users should be able to sign in with their Google account.
+
+
+2. Name: logout
+Type: Functional
+Summary: Users should be able to sign out when they are done using the gathering manager.
+
+
+3. Name: add_gathering
+Type: Functional
+Summary: Users shall be able to create a new gathering by providing a name, time, and description. 
+
+
+4. Name: remove_gathering
+Type: Functional
+Summary: Users shall be able to remove a gathering they created.
+
+5. Name: edit_gathering
+Type: Functional
+Summary: Hosts shall be able to edit the details of their gatherings.
+
+
+6. Name: add_tags
+Type: Functional
+Summary: Users shall be able to add predefined tag-based descriptors to gatherings.
+
+
+7. Name: privacy_settings
+Type: Functional
+Summary: Users can choose to make a gathering private or public.
+
+
+8. Name: access_code
+Type: Functional
+Summary: Upon creating a gathering, the host will be given an access code they can share with guests.
+
+
+9. Name: join_link
+Type: Functional
+Summary: Upon creating a gathering, the host will be given a link that guests can use to RSVP.
+
+
+10. Name: link_and_code_regeneration
+Type: Functional
+Summary: Hosts can generate new join links and access codes for their gatherings.
+
+
+11. Name: email_service
+Type: Functional
+Summary: Users should be able to sign up for email reminders via the Amazon Simple Email Service.
+
+
+12. Name: gathering_search
+Type: Functional
+Summary: Users can access a page of public gatherings and filter them by tags and the time they take place.
+
+
+13. Name: View_Gatherings
+Type: Functional
+Summary: Users can access a page where they can view the past and upcoming gatherings they created and any they have signed up for.
+
+
+14. Name: mobile_compatibility
+Type: Constraint
+Summary: The website shall be fully compatible with mobile devices.
+
+
+15. Name: adaptive_ui
+Type: Constraint
+Summary: UI will automatically adapt to fit the current device.
+
+
+16. Name: platform_accessibility
+Type: Constraint
+Summary: The gathering manager shall be designed as a web application accessible only through a browser.
+
+
+17. Name: email_compliance
+Type: Constraint
+Summary: Third-party email reminder features shall work correctly and follow legal guidelines.
+
+
+18. Name: content_moderation
+Type: Constraint
+Summary: Gatherings must be filtered to remove any illegal or harmful events that are created.
+
+
+19. Name: security_of_access_codes
+Type: Constraint
+Summary: Access codes shall remain secure, as gatherings may contain private information of their hosts. Access codes should be difficult to guess and should be set to an expiry time.
+
+
+20. Name: scalability_and_user_management
+Type: Constraint
+Summary: The system shall be able to handle many gatherings with tags and user accounts registered to those gatherings.
+
+
+21. Name: login_secure
+Type: Risk
+Summary: Logging in with a Google account should securely acquire a user’s account details.
+
+
+22. Name: email_spam_prevention
+Type: Risk
+Summary: Emails sent shall comply with anti-spam laws.
+
+
+23. Name: capacity_management
+Type: Risk
+Summary: The system shall be able to manage an unexpectedly large number of users, and must be large enough to support high demand.
+
+
+24. Name: third-party_dependencies
+Type: Risk
+Summary:  The gathering manager shall rely on third parties for email notifications and account authentication. There is a risk of system failure if either service is unavailable.
