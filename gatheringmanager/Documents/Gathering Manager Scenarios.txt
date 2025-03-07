@@ -1,0 +1,38 @@
+﻿1. Parent Organizing a Birthday Party For His Child
+Jack wants to plan his son's birthday party, inviting all his friends from school. He signs in to the gathering manager with Google on his phone and creates the event, providing the event's name, time, and description. He makes sure the event is set to private and receives an invite link that he can text to all of the parents at the school so they can RSVP for the party. He also shares a unique access code with them, which they use to register as having attended the party. Afterwards, he checks how many people actually attended the party to plan around that size for the next year.
+
+
+2. Parent Attending a Birthday Party With Kids
+Sam receives a text from Jack inviting her and her two kids to Jack’s son’s birthday party, giving a join link and access code. She clicks the join link and is taken to the website where she RSVPs for her and her kids. She is prompted to log in with her Google account and then chooses to receive an email reminder later. The day before the party, she receives the reminder, and when she arrives at the party, she enters the access code into the website. The next year, she uses the website to remember Jack’s son’s birthday by looking at her event history.
+
+
+3. Charity Worker Organizing a Concert
+Andrew is a charity worker who wants to set up a concert to raise money. He signs in to the gathering manager website and creates a public event with the tags “charity” and “performance.” He gets the link published in a local digital newspaper so as many people as possible can attend and raise money. As new performers sign up, he edits the event description and adds their names. After the event ends, he checks his event history for the final guest count, which he celebrates on his charity’s website.
+
+
+4. University Organizing a Career Fair
+APSU wants to host a career fair for college students, so a representative uses the website to create a new event. After adding the information, they email students the link so they can attend and make connections. Unfortunately, the link becomes compromised by someone outside the university, and unauthorized users begin to flood the event. The representative notices an abnormally large number of attendees and immediately revokes the previous gathering link before generating a new one. They send out another round of emails with the new link, warning students not to share event links with anyone outside the university.
+
+
+5. CEO Organizing a Company Picnic
+The CEO of a company wants to hold a yearly company picnic. He creates a new event on his PC through the gathering manager website and enters the event information before emailing all employees the join link and a personalized access code. A few days before the event, the CEO realizes inclement weather will require rescheduling the picnic. He uses the website to reschedule the event for next week, and an email is sent out to employees notifying them of the event being rescheduled. A week later, the event reminder is sent out again, and the event is hosted the next day. After the event, the CEO ensures every employee who was emailed attended the event and signed in.
+
+
+6. Wedding Planner Organizing a Private Reception
+A wedding planner is hired to coordinate a private wedding reception. Using the Gathering Manager website, they create an event with details such as the venue, date, and time. They add the couple as hosts and invite all confirmed guests by entering their email addresses. A week before the reception, the planner uses the system to finalize the guest list and sends a reminder email to all attendees. On the event day, the planner checks in guests as they arrive. After the event, they download an attendance report to ensure all RSVPs matched the actual attendees.
+
+
+7. Fitness Instructor Running a Series of Training Sessions
+A fitness instructor is conducting a series of boot camp sessions at a local gym. They register the sessions in the system under health and fitness and assign participants roles such as beginner, intermediate, or advanced. After a few months, the instructor filters attendance data for beginner-level sessions to assess retention rates and determine if additional beginner classes are needed.
+
+
+8. Tech Conference Manager Handling Speaker Registration
+A conference manager is organizing a tech summit with multiple speakers. They use the Gathering Manager system to create separate gatherings for each session, assigning different speakers as hosts. Each speaker receives a link to manage their session details and invite their audience. One of the keynote speakers falls ill and cancels at the last minute. The manager updates the event page, notifies registered attendees via automated emails, and reschedules the session for a later date. After the conference, the system generates a participation report to analyze session popularity.
+
+
+9. Sports Club Hosting a Tournament Registration
+A local sports club is organizing a basketball tournament. The club admin creates a team registration event through the Gathering Manager and sets a registration deadline. Teams sign up using the provided link, and the system automatically generates a confirmation email. Two days before the event, the admin realizes one team has missing player details. They send a reminder email directly from the platform. At the end of the tournament, the admin uses the attendance logs to track participation. 
+
+
+10.  University Professor Hosting a Research Symposium
+A university professor plans to host a research symposium for graduate students. They use the Gathering Manager system to create the event, including session topics and speaker details. The professor generates a public join link for external attendees and a private access code for registered students. A few days before the event, they notice some students haven’t confirmed attendance, so they use the system to send a follow-up email. Afterward, the professor uses the system’s analytics feature to review attendance and send follow-up materials to participants.
