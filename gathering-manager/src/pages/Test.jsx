@@ -1,7 +1,21 @@
-import logo from '../logo.svg'
-import '../App.css'
+import logo from '../logo.svg';
+import '../App.css';
+import { useEffect, useState } from 'react';
+import { getUsers } from '../api/data';
+
 
 function Test(){
+
+    const [users, setUsers] = useState([]);
+
+    useEffect(() => {
+        getData();
+    }, []);
+
+    async function getData() {
+        setUsers(await getUsers());
+    }    
+
     return (
         <div className="App">
         <header className="App-header">
@@ -17,6 +31,14 @@ function Test(){
             >
                 Learn React
             </a>
+            <ul>
+                <li>before</li>
+                <li>{users.length}</li>
+                {users.map((user) => (
+                    <li>{user.username}</li>
+                ))}
+                <li>after</li>
+            </ul>
             </header>
         </div>
     );
