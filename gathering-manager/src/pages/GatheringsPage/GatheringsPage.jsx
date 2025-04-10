@@ -1,14 +1,15 @@
 import Header from "../../components/Header/Header";
 
-function Stats() {
+
+function GatheringsPage() {
     return (
         <>
-            <Header/>
+            <Header/>    
             <div>
-                <h1>Stats Page</h1>
+                <h1>Gatherings Page</h1>
             </div>
         </>
     );
 }
 
-export default Stats;
+export default GatheringsPage;

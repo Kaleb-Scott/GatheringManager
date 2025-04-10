@@ -13,10 +13,10 @@ function Header() {
             <nav className={styles.navbar}>
                 <div>
                     <ul>
-                        <li>Home</li>
-                        <li>Public Gatherings</li>
-                        <li>Manage Gatherings</li>
-                        <li>Statistics</li>
+                        <li><Link to="/">Home</Link></li>
+                        <li><Link to="/community">Public Gatherings</Link></li>
+                        <li><Link to="/gatherings">Manage Gatherings</Link></li>
+                        <li><Link to="/stats">Statistics</Link></li>
                     </ul>
                 </div>
             </nav>

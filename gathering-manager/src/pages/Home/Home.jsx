@@ -1,8 +1,8 @@
-import logo from '../logo.svg';
-import '../App.css';
+import logo from '../../logo.svg';
+import '../../App.css';
 import { useEffect, useState } from 'react';
-import { getUsers } from '../api/data';
-import Header from '../components/Header/Header';
+import { getUsers } from '../../api/data';
+import Header from '../../components/Header/Header';
 
 
 function Test(){
