@@ -2,6 +2,7 @@ import logo from '../logo.svg';
 import '../App.css';
 import { useEffect, useState } from 'react';
 import { getUsers } from '../api/data';
+import Header from '../components/Header/Header';
 
 
 function Test(){
@@ -17,6 +18,8 @@ function Test(){
     }    
 
     return (
+        <>
+        <Header/>
         <div className="App">
         <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
@@ -41,6 +44,7 @@ function Test(){
             </ul>
             </header>
         </div>
+        </>
     );
 }
 
