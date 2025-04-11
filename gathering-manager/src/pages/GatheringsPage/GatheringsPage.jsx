@@ -1,6 +1,7 @@
 import Header from "../../components/Header/Header";
 import styles from "./GatheringsPage.module.css";
 
+const dataList = ["Test Value 1", "Test Value 1", "Test Value 1", "Test Value 1", "Test Value 1", "Test Value 1"];
 
 function GatheringsPage() {
     return (
