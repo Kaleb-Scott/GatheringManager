@@ -1,5 +1,5 @@
 import Header from "../../components/Header/Header";
-import {styles} from "./GatheringsPage.module.css";
+import styles from "./GatheringsPage.module.css";
 
 
 function GatheringsPage() {
