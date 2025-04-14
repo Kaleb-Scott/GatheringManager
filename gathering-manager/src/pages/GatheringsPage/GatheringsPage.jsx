@@ -7,13 +7,15 @@ function GatheringsPage() {
     return (
         <>
             <Header/>
-            <header>
-                <div>
-                    <h1>Stats Page</h1>
-                </div>
-            </header>
             <body>
+                <header>
+                    <div>
+                        <h1>Stats Page</h1>
+                    </div>
+                </header>
                 <h2>Gatherings you have signed up for.</h2>
+                <button>RSVP Using Code</button>
+                <button>Enter Attendance Code</button>
                 <div className={styles.contentBox}>
                     <table>
                         {dataList.map(data => (
