@@ -9,14 +9,32 @@ import { Link } from "react-router-dom";
 function Header() {
 
     function handleLogin() {
-        localStorage.setItem("isLoggedIn", "true");
-        window.location.reload();
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signIn().then(function (googleUser) {
+          var profile = googleUser.getBasicProfile();
+          console.log('ID: ' + profile.getId());
+          console.log('Name: ' + profile.getName());
+          console.log('Image URL: ' + profile.getImageUrl());
+          console.log('Email: ' + profile.getEmail());
+          localStorage.setItem("isLoggedIn", "true");
+          window.location.reload();
+        });
     }
 
     function handleLogOut() {
-        localStorage.setItem("isLoggedIn", "false");
-        window.location.reload();
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+          console.log('User signed out.');
+          localStorage.setItem("isLoggedIn", "false");
+          window.location.reload();
+        });
     }
+
+    window.gapi.load("auth2", function () {
+        window.gapi.auth2.init({
+            client_id: "47332756091-qb562fndm3tnj6de2fa1mo24juqot1ac.apps.googleusercontent.com"
+        });
+    });
 
     return (
         <header className={styles.header}>
