@@ -6,20 +6,37 @@ import { createGathering } from "../../api/data";
 
 const GatheringCreationPopup = ({ onClose }) => {
     const [availableTags, setAvailableTags] = useState([]);
+    const [selectedOptions, setSelectedOptions] = useState([]);
 
     useEffect(() => {
         getAvailableTags();
     }, []);
 
+    const handleChange = (selected) => {
+        setSelectedOptions(selected || []);
+    }
+
     async function getAvailableTags(params) {
         setAvailableTags(await getTags());
     }
 
-    function handleSubmit() {
+    async function handleSubmit() {
         console.log("submit was run.");
         let form = document.popup;
-        createGathering(form.name.value, form.time.value, form.description.value, form.tags.value, form.isPublic.value);
-        onClose(false);
+        let tags = selectedOptions.map((tag) => tag.value)
+        let codes = await createGathering(form.name.value, form.time.value, form.description.value, tags, form.isPublic.value === "on");
+
+        if(!codes) {
+            alert("Sorry, your gathering could not be created.");
+        } else {
+            console.log(`Codes html side: ${codes}`)
+            onClose(false);
+            alert("Your gathering was successfully created." +
+                "Here are the codes for your gathering.\n" +
+                `RSVP Code: ${codes.rsvp_code}\n` +
+                `Attendance Code: ${codes.attendance_code}`
+            );
+        }
     }
 
     function handleClose() {
@@ -45,7 +62,14 @@ const GatheringCreationPopup = ({ onClose }) => {
                         <input type="checkbox" name="isPublic" id="isPublic"/>
                     </div>
                     <label htmlFor="tags">Tags: </label>
-                    <Select name="tags" options={availableTags.map((tag) => ({value: tag, label: tag}))} placeholder="Select tags..." required/>
+                    <Select 
+                    name="tags" 
+                    options={availableTags.map((tag) => ({value: tag, label: tag}))} 
+                    value={selectedOptions}
+                    onChange={handleChange}
+                    placeholder="Select tags..." required
+                    isMulti
+                    />
                     <label htmlFor="description">Description:</label>
                     <textarea name="description" id="description" required></textarea>
                     <div className={styles.buttons}>

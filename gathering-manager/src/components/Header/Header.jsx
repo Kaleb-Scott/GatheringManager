@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 function Header() {
 
     function handleLogin() {
-        var auth2 = gapi.auth2.getAuthInstance();
+        /*var auth2 = gapi.auth2.getAuthInstance();
         auth2.signIn().then(function (googleUser) {
           var profile = googleUser.getBasicProfile();
           console.log('ID: ' + profile.getId());
@@ -18,23 +18,23 @@ function Header() {
           console.log('Email: ' + profile.getEmail());
           localStorage.setItem("isLoggedIn", "true");
           window.location.reload();
-        });
+        });*/
     }
 
     function handleLogOut() {
-        var auth2 = gapi.auth2.getAuthInstance();
+        /*var auth2 = gapi.auth2.getAuthInstance();
         auth2.signOut().then(function () {
           console.log('User signed out.');
           localStorage.setItem("isLoggedIn", "false");
           window.location.reload();
-        });
+        });*/
     }
 
-    window.gapi.load("auth2", function () {
+    /*window.gapi.load("auth2", function () {
         window.gapi.auth2.init({
             client_id: "47332756091-qb562fndm3tnj6de2fa1mo24juqot1ac.apps.googleusercontent.com"
         });
-    });
+    });*/
 
     return (
         <header className={styles.header}>
