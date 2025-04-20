@@ -27,5 +27,10 @@ export async function getTags() {
 }
 
 export async function createGathering(name, time, description, tags, isPublic) {
-    
+    console.log("createGathering was run.");
+    console.log(`name: ${name}`);
+    console.log(`time: ${time}`);
+    console.log(`description: ${description}`);
+    console.log(`tags: ${tags}`);
+    console.log(`isPublic: ${isPublic}`);
 }

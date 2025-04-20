@@ -2,6 +2,7 @@ import styles from "./GatheringCreationPopup.module.css";
 import { getTags } from "../../api/data";
 import { useState, useEffect } from "react";
 import Select from "react-select"
+import { createGathering } from "../../api/data";
 
 const GatheringCreationPopup = ({ onClose }) => {
     const [availableTags, setAvailableTags] = useState([]);
@@ -16,6 +17,8 @@ const GatheringCreationPopup = ({ onClose }) => {
 
     function handleSubmit() {
         console.log("submit was run.");
+        let form = document.popup;
+        createGathering(form.name.value, form.time.value, form.description.value, form.tags.value, form.isPublic.value);
         onClose(false);
     }
 
@@ -42,7 +45,7 @@ const GatheringCreationPopup = ({ onClose }) => {
                         <input type="checkbox" name="isPublic" id="isPublic"/>
                     </div>
                     <label htmlFor="tags">Tags: </label>
-                    <Select options={availableTags.map((tag) => ({value: tag, label: tag}))} placeholder="Select tags..." required/>
+                    <Select name="tags" options={availableTags.map((tag) => ({value: tag, label: tag}))} placeholder="Select tags..." required/>
                     <label htmlFor="description">Description:</label>
                     <textarea name="description" id="description" required></textarea>
                     <div className={styles.buttons}>

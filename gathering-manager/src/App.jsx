@@ -4,7 +4,6 @@ import Test from './pages/Home/Home';
 import Community from './pages/Community/Community';
 import Stats from './pages/Stats/Stats';
 import GatheringsPage from './pages/GatheringsPage/GatheringsPage';
-import SignIn from './pages/SignIn/SignIn';
 
 function App() {
   return (
@@ -14,7 +13,6 @@ function App() {
         <Route path="/stats" element={<Stats/>}/>
         <Route path="/community" element={<Community/>}/>
         <Route path="/gatherings" element={<GatheringsPage/>}/>
-        <Route path="/signin" element={<SignIn/>}/>
       </Routes>
     </Router>
   );
