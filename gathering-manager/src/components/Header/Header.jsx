@@ -2,7 +2,7 @@ import styles from "./Header.module.css";
 import { FaRegUserCircle } from "react-icons/fa"; 
 import { Link } from "react-router-dom";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
-import jwtDecode from "jwt-decode";
+import { jwtDecode } from "jwt-decode";
 
 function Header() {
     const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
