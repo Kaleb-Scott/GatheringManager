@@ -2,7 +2,7 @@ import Header from "../../components/Header/Header";
 import styles from "./GatheringsPage.module.css";
 import { useState } from "react";
 import GatheringCreationPopup from "../../components/GatheringCreationPopup/GatheringCreationPopup";
-import { getGatheringByRSVPCode, rsvpUser } from "../../api/data";
+import { getGatheringByRSVPCode, getGatheringByAttendanceCode, rsvpUser, confirmAttendance } from "../../api/data";
 
 
 function GatheringsPage() {
@@ -24,7 +24,7 @@ function GatheringsPage() {
 
         let gathering = await getGatheringByRSVPCode(code);
 
-        if(!gathering || gathering.time < Date.now()) {
+        if(!gathering || new Date(gathering.time) <= new Date) {
             alert("Sorry, but that code is either invalid or has expired.");
             return;
         }
@@ -42,6 +42,39 @@ function GatheringsPage() {
         }
     }
 
+    async function confirmAttendanceCode() {
+        let code = prompt("please enter your code: ");
+        
+        if(!code) {
+            alert("Error: No Code Entered.");
+            return;
+        } else if(code.length !== 10 || !code.toUpperCase().match(/^[A-Z0-9]{10}$/)) {
+            alert("Error: Code does not match required format.")
+            return;
+        }
+
+        code = code.toUpperCase();
+
+        let gathering = await getGatheringByAttendanceCode(code);
+
+        if(!gathering || new Date(gathering.time) > new Date) {
+            alert("Sorry, but that code is either invalid or the gathering has not started yet.");
+            return;
+        }
+
+        let confirmation = window.confirm(`Is this the correct gathering?\nName: ${gathering.name}\nTime: ${gathering.time}`);
+
+        if(!confirmation) {
+            return;
+        }
+
+        if(await confirmAttendance(gathering.id)) {
+            alert("Confirmed attendance successfully.");
+        } else {
+            alert("Failed to confirm attendance.")
+        }
+    }
+
     return (
         <>
             <Header/>
@@ -54,7 +87,7 @@ function GatheringsPage() {
                 </header>
                 <h2>Gatherings you have signed up for.</h2>
                 <button onClick={confirmRSVPCode}>RSVP Using Code</button>
-                <button>Enter Attendance Code</button>
+                <button onClick={confirmAttendanceCode}>Enter Attendance Code</button>
                 <div className={styles.contentBox}>
                     <table>
                         <tbody>

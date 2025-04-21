@@ -84,6 +84,17 @@ export async function getGatheringByRSVPCode(rsvp_code) {
     }
 }
 
+export async function getGatheringByAttendanceCode(attendance_code) {
+    const {data, error} = await supabase.from("Gatherings").select("*").eq("attendance_code", attendance_code).single();
+
+    if(error || !data) {
+        console.log("Failed to retrieve gathering data. Error: " + error.message);
+        return null;
+    } else {
+        return data;
+    }
+}
+
 export async function rsvpUser(gatheringID) {
     let userData = await getCurrentUserData();
 
@@ -114,6 +125,41 @@ export async function rsvpUser(gatheringID) {
         console.log("Error occured while performing RSVP: " + insertError.message);
     } else if(!insertData) {
         console.log("Falied to upload RSVP to server.");
+    }
+
+    return insertData ? true : false;
+}
+
+export async function confirmAttendance(gatheringID) {
+    let userData = await getCurrentUserData();
+
+    if(!userData) {
+        return false;
+    }
+
+    const {data: checkData, error: checkError} = await supabase.from("Attendance").select("*").eq("userID", userData.id).eq("gatheringID", parseInt(gatheringID));
+
+    console.log("debug 1");
+    console.log(`userData: ${userData}`)
+    console.log(`userID: ${userData.id}\ngatheringID: ${gatheringID}`);
+    console.log(checkData);
+    console.log("error" + checkError);
+
+    if(checkData.length || checkError) {
+        console.log("some error");
+        return false;
+    }
+    const {data: insertData, error: insertError} = await supabase.from("Attendance").insert([{
+        userID: userData.id,
+        gatheringID: gatheringID
+    }]).select().single();
+
+    console.log("debug 2");
+
+    if(insertError) {
+        console.log("Error occured while confirming attendance: " + insertError.message);
+    } else if(!insertData) {
+        console.log("Falied to upload attendance record to server.");
     }
 
     return insertData ? true : false;
