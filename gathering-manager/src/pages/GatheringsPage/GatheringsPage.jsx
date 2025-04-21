@@ -3,7 +3,7 @@ import styles from "./GatheringsPage.module.css";
 import { useState, useEffect } from "react";
 import GatheringCreationPopup from "../../components/GatheringCreationPopup/GatheringCreationPopup";
 import { getGatheringByRSVPCode, getGatheringByAttendanceCode, rsvpUser, confirmAttendance,
-    getRegisteredGatherings, getCurrentGatherings, getPastGatherings
+    getRegisteredGatherings, getCurrentGatherings, getPastGatherings, deleteGathering
  } from "../../api/data";
 
 
@@ -12,8 +12,6 @@ function GatheringsPage() {
     const [registeredGatherings, setRegisteredGathereings] = useState([]);
     const [currentGatherings, setCurrentGatherings] = useState([]);
     const [pastGatherings, setPastGatherings] = useState([]);
-
-    const dataList = ["Test Value 1", "Test Value 2", "Test Value 3", "Test Value 4", "Test Value 5", "Test Value 6"];
 
     useEffect(() => {
         getgatherings();
@@ -91,6 +89,32 @@ function GatheringsPage() {
         }
     }
 
+    async function handleDelete(gathering) {
+        console.log("gathering: " + gathering.name);
+
+        let confirmation = window.confirm("Are you sure you want to delete this gathering?");
+
+        if(!confirmation) {
+            return;
+        }
+
+        let response = await deleteGathering(gathering.id);
+
+        if(response) {
+            alert("Successfully deleted the gathering.");
+        } else {
+            alert("Failed to delete gatherings.");
+        }
+    }
+
+    async function handleEdit(gathering) {
+        
+    }
+
+    async function handleView(gathering) {
+        
+    }
+
     return (
         <>
             <Header/>
@@ -108,7 +132,7 @@ function GatheringsPage() {
                     <table>
                         <tbody>
                             {registeredGatherings.map(data => (
-                                <tr key={data.name}>
+                                <tr key={data.id}>
                                     <td>{data.name}</td>
                                     <td>{new Date(data.time).toLocaleString()}</td>
                                     <td><button>View</button></td>
@@ -124,11 +148,11 @@ function GatheringsPage() {
                     <table>
                         <tbody>
                             {currentGatherings.map(data => (
-                                <tr key={data.name}>
+                                <tr key={data.id}>
                                     <td>{data.name}</td>
                                     <td>{new Date(data.time).toLocaleString()}</td>
-                                    <td><button>Edit</button></td>
-                                    <td><button>Delete</button></td>
+                                    <td><button onClick={() => handleEdit(data)}>Edit</button></td>
+                                    <td><button onClick={() => handleDelete(data)}>Delete</button></td>
                                 </tr>
                             ))}
                         </tbody>
@@ -139,11 +163,11 @@ function GatheringsPage() {
                     <table>
                         <tbody>
                             {pastGatherings.map(data => (
-                                <tr  key={data.name}>
+                                <tr  key={data.id}>
                                     <td>{data.name}</td>
                                     <td>{new Date(data.time).toLocaleString()}</td>
-                                    <td><button>View</button></td>
-                                    <td><button>Delete</button></td>
+                                    <td><button onClick={() => handleView(data)}>View</button></td>
+                                    <td><button onClick={() => handleDelete(data)}>Delete</button></td>
                                 </tr>
                             ))}
                         </tbody>

@@ -56,6 +56,31 @@ export async function createGathering(name, time, description, tags, isPublic) {
     }
 }
 
+export async function updateGathering(gatheringID, name, time, description, tags, isPublic) {
+    console.log("updateGathering was run.");
+    console.log(`name: ${name}`);
+    console.log(`time: ${time}`);
+    console.log(`description: ${description}`);
+    console.log(`tags: ${tags}`);
+    console.log(`tags0: ${tags[0]}`)
+    console.log(`isPublic: ${isPublic}`);
+
+    const {error} = await supabase.from("Gatherings").update([{
+        name: name,
+        time: time,
+        description: description,
+        Tags: tags,
+        isPublic: isPublic,
+    }]).eq("id", gatheringID);
+
+    if(error) {
+        console.log("Failed to update data: " + error.message);
+        return false;
+    } else {
+        return true;
+    }
+}
+
 export async function getCurrentUserData() {
     
     if(localStorage.getItem("isLoggedIn") === "false") {
@@ -211,4 +236,15 @@ export async function confirmAttendance(gatheringID) {
     }
 
     return insertData ? true : false;
+}
+
+export async function deleteGathering(gatheringID) {
+    const {data, error} = await supabase.from("Gatherings").delete().eq("id", gatheringID);
+
+    if(error) {
+        console.log(`Failed to delete gathering: ${error.message}`);
+        return false;
+    } else {
+        return true;
+    }
 }

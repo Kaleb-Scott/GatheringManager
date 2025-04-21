@@ -1,0 +1,48 @@
+.popupBackground {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(2px);
+    background-color: transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popupContainer {
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    background-color: white;
+    border: 3px solid black;
+    border-radius: 20px;
+}
+
+.dataArea {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.submitButton{
+    margin: 5px;
+    width: 50%;
+    height: 50%;
+    
+}
+
+.cancelButton {
+    margin: 5px;
+    width: 50%;
+}
+
+.time {
+    justify-self: right;
+}
+
+.buttons {
+    display: flex;
+    width: 100%;
+}
