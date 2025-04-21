@@ -2,11 +2,45 @@ import Header from "../../components/Header/Header";
 import styles from "./GatheringsPage.module.css";
 import { useState } from "react";
 import GatheringCreationPopup from "../../components/GatheringCreationPopup/GatheringCreationPopup";
+import { getGatheringByRSVPCode, rsvpUser } from "../../api/data";
 
 
 function GatheringsPage() {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const dataList = ["Test Value 1", "Test Value 2", "Test Value 3", "Test Value 4", "Test Value 5", "Test Value 6"];
+
+    async function confirmRSVPCode() {
+        let code = prompt("please enter your code: ");
+        
+        if(!code) {
+            alert("Error: No Code Entered.");
+            return;
+        } else if(code.length !== 10 || !code.toUpperCase().match(/^[A-Z0-9]{10}$/)) {
+            alert("Error: Code does not match required format.")
+            return;
+        }
+
+        code = code.toUpperCase();
+
+        let gathering = await getGatheringByRSVPCode(code);
+
+        if(!gathering || gathering.time < Date.now()) {
+            alert("Sorry, but that code is either invalid or has expired.");
+            return;
+        }
+
+        let confirmation = window.confirm(`Is this the correct gathering?\nName: ${gathering.name}\nTime: ${gathering.time}`);
+
+        if(!confirmation) {
+            return;
+        }
+
+        if(await rsvpUser(gathering.id)) {
+            alert("RSVP performed successfully.");
+        } else {
+            alert("Failed to execute RSVP.")
+        }
+    }
 
     return (
         <>
@@ -19,7 +53,7 @@ function GatheringsPage() {
                     </div>
                 </header>
                 <h2>Gatherings you have signed up for.</h2>
-                <button>RSVP Using Code</button>
+                <button onClick={confirmRSVPCode}>RSVP Using Code</button>
                 <button>Enter Attendance Code</button>
                 <div className={styles.contentBox}>
                     <table>

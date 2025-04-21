@@ -44,19 +44,6 @@ export async function createGathering(name, time, description, tags, isPublic) {
         isPublic: isPublic,
     }]).select("rsvp_code, attendance_code").single();
 
-    /*const {data, error} = await supabase.from("Gatherings").insert({
-        id: 0,
-        name: "Go Home",
-        time: "2025-04-19T13:30",
-        description: "Testing gathering upload.",
-        hostID: 0,
-        Tags: ["Party"],
-        isPublic: true,
-        serviced: false,
-        rsvp_code: "a",
-        attendance_code: "b"
-    });*/
-
     if(error) {
         console.log("Failed to upload data: " + error.message);
         return null;
@@ -67,4 +54,67 @@ export async function createGathering(name, time, description, tags, isPublic) {
         console.log(`error ${error}`);
         return data;
     }
+}
+
+export async function getCurrentUserData() {
+    
+    if(localStorage.getItem("isLoggedIn") === "false") {
+        return null;
+    }
+
+    //const {data, error} = await supabase.from("Users").select("*").eq("email", localStorage.getItem("email")).single();
+    const {data, error} = await supabase.from("Users").select("*").eq("email", "Ben@Yahoo.com").single();
+
+    if(error) {
+        console.log("Failed to retrieve user's data: " + error.message);
+        return null;
+    } else {
+        return data;
+    }
+}
+
+export async function getGatheringByRSVPCode(rsvp_code) {
+    const {data, error} = await supabase.from("Gatherings").select("*").eq("rsvp_code", rsvp_code).single();
+
+    if(error || !data) {
+        console.log("Failed to retrieve gathering data. Error: " + error.message);
+        return null;
+    } else {
+        return data;
+    }
+}
+
+export async function rsvpUser(gatheringID) {
+    let userData = await getCurrentUserData();
+
+    if(!userData) {
+        return false;
+    }
+
+    const {data: checkData, error: checkError} = await supabase.from("RSVP").select("*").eq("userID", userData.id).eq("gatheringID", parseInt(gatheringID));
+
+    console.log("debug 1");
+    console.log(`userData: ${userData}`)
+    console.log(`userID: ${userData.id}\ngatheringID: ${gatheringID}`);
+    console.log(checkData);
+    console.log("error" + checkError);
+
+    if(checkData.length || checkError) {
+        console.log("some error");
+        return false;
+    }
+    const {data: insertData, error: insertError} = await supabase.from("RSVP").insert([{
+        userID: userData.id,
+        gatheringID: gatheringID
+    }]).select().single();
+
+    console.log("debug 2");
+
+    if(insertError) {
+        console.log("Error occured while performing RSVP: " + insertError.message);
+    } else if(!insertData) {
+        console.log("Falied to upload RSVP to server.");
+    }
+
+    return insertData ? true : false;
 }
