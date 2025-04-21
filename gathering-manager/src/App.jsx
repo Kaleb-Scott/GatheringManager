@@ -7,14 +7,12 @@ import GatheringsPage from './pages/GatheringsPage/GatheringsPage';
 
 function App() {
   return (
-    <Router>
       <Routes>
         <Route path="/" element={<Test />}/>
         <Route path="/stats" element={<Stats/>}/>
         <Route path="/community" element={<Community/>}/>
         <Route path="/gatherings" element={<GatheringsPage/>}/>
       </Routes>
-    </Router>
   );
 }
 
