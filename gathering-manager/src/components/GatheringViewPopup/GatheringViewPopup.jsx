@@ -1,4 +1,4 @@
-import styles from "./GatheringUpdatePopup.module.css";
+import styles from "./GatheringViewPopup.module.css";
 import { getTags } from "../../api/data";
 import { useState, useEffect } from "react";
 import Select from "react-select"
@@ -27,10 +27,7 @@ const GatheringViewPopup = ({ isOpen, onClose, gathering }) => {
                     <label htmlFor="tags">Tags: </label>
                     <Select 
                     name="tags" 
-                    options={availableTags.map((tag) => ({value: tag, label: tag}))} 
                     value={selectedOptions}
-                    onChange={handleChange}
-                    placeholder="Select tags..." required
                     isDisabled
                     isClearable={false}
                     isMulti

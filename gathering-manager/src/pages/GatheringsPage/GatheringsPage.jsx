@@ -2,7 +2,7 @@ import Header from "../../components/Header/Header";
 import styles from "./GatheringsPage.module.css";
 import { useState, useEffect } from "react";
 import GatheringCreationPopup from "../../components/GatheringCreationPopup/GatheringCreationPopup";
-import GatheringUpdatePopup from "../../components/GatheringUpdatePopup copy/GatheringUpdatePopup";
+import GatheringUpdatePopup from "../../components/GatheringUpdatePopup/GatheringUpdatePopup";
 import GatheringViewPopup from "../../components/GatheringViewPopup/GatheringViewPopup";
 import { getGatheringByRSVPCode, getGatheringByAttendanceCode, rsvpUser, confirmAttendance,
     getRegisteredGatherings, getCurrentGatherings, getPastGatherings, deleteGathering

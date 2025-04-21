@@ -6,14 +6,15 @@ import { updateGathering } from "../../api/data";
 
 const GatheringUpdatePopup = ({isOpen, onClose, gathering }) => {
 
-    if(!isOpen || !gathering) {return null;}
-
+    
     const [availableTags, setAvailableTags] = useState([]);
     const [selectedOptions, setSelectedOptions] = useState(gathering.tags);
-
+    
     useEffect(() => {
         getAvailableTags();
     }, []);
+    
+    if(!isOpen || !gathering) {return null;}
 
     const handleChange = (selected) => {
         setSelectedOptions(selected || []);
@@ -35,7 +36,7 @@ const GatheringUpdatePopup = ({isOpen, onClose, gathering }) => {
 
         let response = await updateGathering(form.name.value, form.time.value, form.description.value, tags, form.isPublic.value === "on");
 
-        if(!codes) {
+        if(!response) {
             alert("Sorry, your gathering could not be created.");
         } else {
             onClose(false);
