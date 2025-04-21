@@ -2,9 +2,12 @@ import styles from "./GatheringUpdatePopup.module.css";
 import { getTags } from "../../api/data";
 import { useState, useEffect } from "react";
 import Select from "react-select"
-import { createGathering, updateGathering } from "../../api/data";
+import { updateGathering } from "../../api/data";
 
-const GatheringUpdatePopup = ({ onClose }, gathering) => {
+const GatheringUpdatePopup = ({isOpen, onClose, gathering }) => {
+
+    if(!isOpen || !gathering) {return null;}
+
     const [availableTags, setAvailableTags] = useState([]);
     const [selectedOptions, setSelectedOptions] = useState(gathering.tags);
 

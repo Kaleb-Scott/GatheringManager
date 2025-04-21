@@ -2,13 +2,18 @@ import Header from "../../components/Header/Header";
 import styles from "./GatheringsPage.module.css";
 import { useState, useEffect } from "react";
 import GatheringCreationPopup from "../../components/GatheringCreationPopup/GatheringCreationPopup";
+import GatheringUpdatePopup from "../../components/GatheringUpdatePopup copy/GatheringUpdatePopup";
+import GatheringViewPopup from "../../components/GatheringViewPopup/GatheringViewPopup";
 import { getGatheringByRSVPCode, getGatheringByAttendanceCode, rsvpUser, confirmAttendance,
     getRegisteredGatherings, getCurrentGatherings, getPastGatherings, deleteGathering
  } from "../../api/data";
 
 
 function GatheringsPage() {
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const [isCreationPopupOpen, setIsCreationPopupOpen] = useState(false);
+    const [isUpdatePopupOpen, setIsUpdatePopupOpen] = useState(false);
+    const [isViewPopupOpen, setIsViewPopupOpen] = useState(false);
+    const [selectedGathering, setSelectedGathering] = useState(null);
     const [registeredGatherings, setRegisteredGathereings] = useState([]);
     const [currentGatherings, setCurrentGatherings] = useState([]);
     const [pastGatherings, setPastGatherings] = useState([]);
@@ -108,18 +113,27 @@ function GatheringsPage() {
     }
 
     async function handleEdit(gathering) {
+        console.log("gathering: " + gathering.name);
+
+        setSelectedGathering(gathering);
+        setIsUpdatePopupOpen(true);
         
     }
 
     async function handleView(gathering) {
-        
+        console.log("gathering: " + gathering.name);
+
+        setSelectedGathering(gathering);
+        setIsViewPopupOpen(true);
     }
 
     return (
         <>
             <Header/>
             <main>
-                {isPopupOpen && (<GatheringCreationPopup onClose={setIsPopupOpen}/>)}
+                {isCreationPopupOpen && (<GatheringCreationPopup onClose={setIsCreationPopupOpen}/>)}
+                {isUpdatePopupOpen && (<GatheringUpdatePopup isOpen={isUpdatePopupOpen} onClose={setIsUpdatePopupOpen} gathering={selectedGathering}/>)}
+                {isViewPopupOpen && (<GatheringViewPopup isOpen={isViewPopupOpen} onClose={setIsViewPopupOpen} gathering={selectedGathering}/>)}
                 <header>
                     <div>
                         <h1>Stats Page</h1>
@@ -135,7 +149,7 @@ function GatheringsPage() {
                                 <tr key={data.id}>
                                     <td>{data.name}</td>
                                     <td>{new Date(data.time).toLocaleString()}</td>
-                                    <td><button>View</button></td>
+                                    <td><button onClick={() => handleView(data)}>View</button></td>
                                     <td><button>Unregister</button></td>
                                 </tr>
                             ))}
@@ -143,7 +157,7 @@ function GatheringsPage() {
                     </table>
                 </div>
                 <h2>Your current gatherings.</h2>
-                <button onClick={() => setIsPopupOpen(true)}>Create Gathering</button>
+                <button onClick={() => setIsCreationPopupOpen(true)}>Create Gathering</button>
                 <div className={styles.contentBox}>
                     <table>
                         <tbody>
@@ -151,6 +165,8 @@ function GatheringsPage() {
                                 <tr key={data.id}>
                                     <td>{data.name}</td>
                                     <td>{new Date(data.time).toLocaleString()}</td>
+                                    <td>{data.rsvp_code}</td>
+                                    <td>{data.attendance_code}</td>
                                     <td><button onClick={() => handleEdit(data)}>Edit</button></td>
                                     <td><button onClick={() => handleDelete(data)}>Delete</button></td>
                                 </tr>
