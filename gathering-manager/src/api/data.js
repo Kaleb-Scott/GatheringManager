@@ -73,6 +73,54 @@ export async function getCurrentUserData() {
     }
 }
 
+export async function getRegisteredGatherings() {
+    //TODO: get userID based on current email
+
+    const {data: rsvpData, error: rsvpError} = await supabase.from("RSVP").select("gatheringID").eq("userID", 0);
+
+    if(rsvpError) {
+        console.log("Failed to retrieve rsvped gatherings: " + rsvpError.message);
+        return undefined;
+    }
+
+    let ids = rsvpData.map(id => id.gatheringID);
+
+    const {data: resultData, error: resultError} = await supabase.from("Gatherings").select("*").in("id", ids).gt("time", new Date().toISOString());
+
+    if(resultError) {
+        console.log("Failed to retrieve registered Gatherings: " + resultError.message);
+        return undefined;
+    }
+
+    return resultData;
+}
+
+export async function getCurrentGatherings() {
+    //TODO: get userID based on current email
+
+    const {data, error} = await supabase.from("Gatherings").select("*").eq("hostID", 0).gt("time", new Date().toISOString());
+
+    if(error) {
+        console.log("failed to retrieve current gatherings" + error.message);
+        return undefined;
+    } else {
+        return data;
+    }
+}
+
+export async function getPastGatherings() {
+    //TODO: get userID based on current email
+
+    const {data, error} = await supabase.from("Gatherings").select("*").eq("hostID", 0).lt("time", new Date().toISOString());
+
+    if(error) {
+        console.log("failed to retrieve current gatherings" + error.message);
+        return undefined;
+    } else {
+        return data;
+    }
+}
+
 export async function getGatheringByRSVPCode(rsvp_code) {
     const {data, error} = await supabase.from("Gatherings").select("*").eq("rsvp_code", rsvp_code).single();
 
