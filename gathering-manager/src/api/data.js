@@ -35,11 +35,13 @@ export async function createGathering(name, time, description, tags, isPublic) {
     console.log(`tags0: ${tags[0]}`)
     console.log(`isPublic: ${isPublic}`);
 
+    let userData = await getCurrentUserData();
+
     const {data, error} = await supabase.from("Gatherings").insert([{
         name: name,
         time: time,
         description: description,
-        hostID: 0,
+        hostID: userData.id,
         Tags: tags,
         isPublic: isPublic,
     }]).select("rsvp_code, attendance_code").single();
@@ -192,6 +194,15 @@ export async function unregister(gatheringID) {
     if(!userData) {
         return false;
     }
+
+    const response = await supabase.from("RSVP").delete().eq("gatheringID", gatheringID).eq("userID", userData.id);
+
+    if(response.status !== 204 && response.status !== 200) {
+        console.log("statusText: " + response.statusText);
+        return false;
+    }
+
+    return true;
 }
 
 export async function rsvpUser(gatheringID) {

@@ -130,7 +130,17 @@ function GatheringsPage() {
     async function handleUnregister(gathering) {
         console.log(gathering.name);
 
+        let confirmation = window.confirm("Are you sure you want to unregister from this gathering?");
+
+        if(!confirmation) {return;}
+
         let response = unregister(gathering.id);
+
+        if(!response) {
+            alert("Failed to unregister from the gathering.");
+        } else {
+            alert("Successfully unregistered from the gathering.")
+        }
     }
 
     if(localStorage.getItem("isLoggedIn") !== "true") {
@@ -167,7 +177,7 @@ function GatheringsPage() {
                                     <td>{data.name}</td>
                                     <td>{new Date(data.time).toLocaleString()}</td>
                                     <td><button onClick={() => handleView(data)}>View</button></td>
-                                    <td><button>Unregister</button></td>
+                                    <td><button onClick={() => handleUnregister(data)}>Unregister</button></td>
                                 </tr>
                             ))}
                         </tbody>
@@ -184,6 +194,7 @@ function GatheringsPage() {
                                     <td>{new Date(data.time).toLocaleString()}</td>
                                     <td>{data.rsvp_code}</td>
                                     <td>{data.attendance_code}</td>
+                                    <td><button>New Codes</button></td>
                                     <td><button onClick={() => handleEdit(data)}>Edit</button></td>
                                     <td><button onClick={() => handleDelete(data)}>Delete</button></td>
                                 </tr>
