@@ -5,7 +5,7 @@ import GatheringCreationPopup from "../../components/GatheringCreationPopup/Gath
 import GatheringUpdatePopup from "../../components/GatheringUpdatePopup/GatheringUpdatePopup";
 import GatheringViewPopup from "../../components/GatheringViewPopup/GatheringViewPopup";
 import { getGatheringByRSVPCode, getGatheringByAttendanceCode, rsvpUser, confirmAttendance,
-    getRegisteredGatherings, getCurrentGatherings, getPastGatherings, deleteGathering
+    getRegisteredGatherings, getCurrentGatherings, getPastGatherings, deleteGathering, unregister
  } from "../../api/data";
 
 
@@ -125,6 +125,23 @@ function GatheringsPage() {
 
         setSelectedGathering(gathering);
         setIsViewPopupOpen(true);
+    }
+
+    async function handleUnregister(gathering) {
+        console.log(gathering.name);
+
+        let response = unregister(gathering.id);
+    }
+
+    if(localStorage.getItem("isLoggedIn") !== "true") {
+        return (
+            <>
+                <Header/>
+                <main>
+                    <p>Please login to access the contents of this page.</p>
+                </main>
+            </>
+        )
     }
 
     return (

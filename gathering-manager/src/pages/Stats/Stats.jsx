@@ -20,6 +20,18 @@ const data = [
 ]
 
 function Stats() {
+
+    if(localStorage.getItem("isLoggedIn") !== "true") {
+        return (
+            <>
+                <Header/>
+                <main>
+                    <p>Please login to access the contents of this page.</p>
+                </main>
+            </>
+        )
+    }
+
     return (
         <>
             <Header/>

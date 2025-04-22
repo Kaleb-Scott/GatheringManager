@@ -87,8 +87,8 @@ export async function getCurrentUserData() {
         return null;
     }
 
-    //const {data, error} = await supabase.from("Users").select("*").eq("email", localStorage.getItem("email")).single();
-    const {data, error} = await supabase.from("Users").select("*").eq("email", "Ben@Yahoo.com").single();
+    const {data, error} = await supabase.from("Users").select("*").eq("email", localStorage.getItem("email")).single();
+    //const {data, error} = await supabase.from("Users").select("*").eq("email", "Ben@Yahoo.com").single();
 
     if(error) {
         console.log("Failed to retrieve user's data: " + error.message);
@@ -101,7 +101,13 @@ export async function getCurrentUserData() {
 export async function getRegisteredGatherings() {
     //TODO: get userID based on current email
 
-    const {data: rsvpData, error: rsvpError} = await supabase.from("RSVP").select("gatheringID").eq("userID", 0);
+    let userData = await getCurrentUserData();
+
+    if(!userData) {
+        return null;
+    }
+
+    const {data: rsvpData, error: rsvpError} = await supabase.from("RSVP").select("gatheringID").eq("userID", userData.id);
 
     if(rsvpError) {
         console.log("Failed to retrieve rsvped gatherings: " + rsvpError.message);
@@ -123,7 +129,13 @@ export async function getRegisteredGatherings() {
 export async function getCurrentGatherings() {
     //TODO: get userID based on current email
 
-    const {data, error} = await supabase.from("Gatherings").select("*").eq("hostID", 0).gt("time", new Date().toISOString());
+    let userData = await getCurrentUserData();
+
+    if(!userData) {
+        return null;
+    }
+
+    const {data, error} = await supabase.from("Gatherings").select("*").eq("hostID", userData.id).gt("time", new Date().toISOString());
 
     if(error) {
         console.log("failed to retrieve current gatherings" + error.message);
@@ -136,7 +148,13 @@ export async function getCurrentGatherings() {
 export async function getPastGatherings() {
     //TODO: get userID based on current email
 
-    const {data, error} = await supabase.from("Gatherings").select("*").eq("hostID", 0).lt("time", new Date().toISOString());
+    let userData = await getCurrentUserData();
+
+    if(!userData) {
+        return null;
+    }
+
+    const {data, error} = await supabase.from("Gatherings").select("*").eq("hostID", userData.id).lt("time", new Date().toISOString());
 
     if(error) {
         console.log("failed to retrieve current gatherings" + error.message);
@@ -165,6 +183,14 @@ export async function getGatheringByAttendanceCode(attendance_code) {
         return null;
     } else {
         return data;
+    }
+}
+
+export async function unregister(gatheringID) {
+    let userData = await getCurrentUserData();
+
+    if(!userData) {
+        return false;
     }
 }
 

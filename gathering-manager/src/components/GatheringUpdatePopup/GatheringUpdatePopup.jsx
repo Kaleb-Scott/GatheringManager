@@ -8,10 +8,11 @@ const GatheringUpdatePopup = ({isOpen, onClose, gathering }) => {
 
     
     const [availableTags, setAvailableTags] = useState([]);
-    const [selectedOptions, setSelectedOptions] = useState(gathering.tags);
+    const [selectedOptions, setSelectedOptions] = useState(gathering.Tags.map((tag) => ({value: tag, label: tag})));
     
     useEffect(() => {
         getAvailableTags();
+        setDefaultTags();
     }, []);
     
     if(!isOpen || !gathering) {return null;}
@@ -20,8 +21,12 @@ const GatheringUpdatePopup = ({isOpen, onClose, gathering }) => {
         setSelectedOptions(selected || []);
     }
 
-    async function getAvailableTags(params) {
+    async function getAvailableTags() {
         setAvailableTags(await getTags());
+    }
+
+    async function setDefaultTags() {
+        //setSelectedOptions();
     }
 
     async function handleSubmit() {
@@ -34,13 +39,15 @@ const GatheringUpdatePopup = ({isOpen, onClose, gathering }) => {
             return;
         }
 
-        let response = await updateGathering(form.name.value, form.time.value, form.description.value, tags, form.isPublic.value === "on");
+        console.log("identifier" + form.isPublic.value)
+
+        let response = await updateGathering(gathering.id, form.name.value, form.time.value, form.description.value, tags, form.isPublic.value === "on");
 
         if(!response) {
-            alert("Sorry, your gathering could not be created.");
+            alert("Sorry, your gathering could not be updated.");
         } else {
             onClose(false);
-            alert("Your gathering was successfully created.");
+            alert("Your gathering was successfully updated.");
         }
     }
 
@@ -56,27 +63,27 @@ const GatheringUpdatePopup = ({isOpen, onClose, gathering }) => {
                 <form className={styles.dataArea} name="popup" action={handleSubmit}>
                     <div>
                         <label htmlFor="name">Name: </label>
-                        <input type="text" name="name" id="name" value={gathering.name} required/>
+                        <input type="text" name="name" id="name" defaultValue={gathering.name} required/>
                     </div>
                     <div className={styles.timeContainer}>
                         <label htmlFor="time">Time: </label>
-                        <input className={styles.time} type="datetime-local" name="time" id="time" value={new Date(gathering.time).toLocaleString()} required/>
+                        <input className={styles.time} type="datetime-local" name="time" id="time" defaultValue={gathering.time} required/>
                     </div>
                     <div>
                         <label htmlFor="isPublic">Public: </label>
-                        <input type="checkbox" name="isPublic" id="isPublic" checked={gathering.isPublic}/>
+                        <input type="checkbox" name="isPublic" id="isPublic" defaultChecked={gathering.isPublic}/>
                     </div>
                     <label htmlFor="tags">Tags: </label>
                     <Select 
                     name="tags" 
                     options={availableTags.map((tag) => ({value: tag, label: tag}))} 
-                    value={selectedOptions}
+                    defaultValue={selectedOptions}
                     onChange={handleChange}
                     placeholder="Select tags..." required
                     isMulti
                     />
                     <label htmlFor="description">Description:</label>
-                    <textarea name="description" id="description" value={gathering.description} required></textarea>
+                    <textarea name="description" id="description" defaultValue={gathering.description} required></textarea>
                     <div className={styles.buttons}>
                         <input className={styles.submitButton} type="submit" value="Submit"/>
                         <button className={styles.cancelButton} onClick={handleClose}>Cancel</button>
