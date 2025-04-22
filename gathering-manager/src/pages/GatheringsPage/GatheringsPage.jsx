@@ -7,6 +7,7 @@ import GatheringViewPopup from "../../components/GatheringViewPopup/GatheringVie
 import { getGatheringByRSVPCode, getGatheringByAttendanceCode, rsvpUser, confirmAttendance,
     getRegisteredGatherings, getCurrentGatherings, getPastGatherings, deleteGathering, unregister
  } from "../../api/data";
+import supabase from "../../api/supabase-client";
 
 
 function GatheringsPage() {
@@ -143,6 +144,24 @@ function GatheringsPage() {
         }
     }
 
+    async function handleRegen(gathering) {
+        console.log(gathering.name);
+
+        let confirmation = window.confirm("Are you sure you want to generate new codes for this gathering?\n" +
+            "Older codes will no longer work if you continue."
+        );
+
+        if(!confirmation) {return;}
+
+        const {data, error} = await supabase.rpc("generate_new_codes", {gatheringid: gathering.id});
+
+        if(error) {
+            alert("Failed to update codes.");
+        } else {
+            alert(`Successfully updated codes.\nRSVP Code: ${data.rsvp_code}\nAttendance Code: ${data.attendance_code}`);
+        }
+    }
+
     if(localStorage.getItem("isLoggedIn") !== "true") {
         return (
             <>
@@ -194,7 +213,7 @@ function GatheringsPage() {
                                     <td>{new Date(data.time).toLocaleString()}</td>
                                     <td>{data.rsvp_code}</td>
                                     <td>{data.attendance_code}</td>
-                                    <td><button>New Codes</button></td>
+                                    <td><button onClick={() => handleRegen(data)}>New Codes</button></td>
                                     <td><button onClick={() => handleEdit(data)}>Edit</button></td>
                                     <td><button onClick={() => handleDelete(data)}>Delete</button></td>
                                 </tr>
