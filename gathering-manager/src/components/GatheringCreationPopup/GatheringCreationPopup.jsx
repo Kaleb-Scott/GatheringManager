@@ -1,7 +1,7 @@
 import styles from "./GatheringCreationPopup.module.css";
 import { getTags } from "../../api/data";
 import { useState, useEffect } from "react";
-import Select from "react-select"
+import Select from "react-select";
 import { createGathering } from "../../api/data";
 
 const GatheringCreationPopup = ({ onClose }) => {
@@ -16,7 +16,7 @@ const GatheringCreationPopup = ({ onClose }) => {
         setSelectedOptions(selected || []);
     }
 
-    async function getAvailableTags(params) {
+    async function getAvailableTags() {
         setAvailableTags(await getTags());
     }
 

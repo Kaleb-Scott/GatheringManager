@@ -106,14 +106,14 @@ export async function getRegisteredGatherings() {
     let userData = await getCurrentUserData();
 
     if(!userData) {
-        return null;
+        return [];
     }
 
     const {data: rsvpData, error: rsvpError} = await supabase.from("RSVP").select("gatheringID").eq("userID", userData.id);
 
     if(rsvpError) {
         console.log("Failed to retrieve rsvped gatherings: " + rsvpError.message);
-        return undefined;
+        return [];
     }
 
     let ids = rsvpData.map(id => id.gatheringID);
@@ -122,7 +122,7 @@ export async function getRegisteredGatherings() {
 
     if(resultError) {
         console.log("Failed to retrieve registered Gatherings: " + resultError.message);
-        return undefined;
+        return [];
     }
 
     return resultData;
@@ -134,14 +134,14 @@ export async function getCurrentGatherings() {
     let userData = await getCurrentUserData();
 
     if(!userData) {
-        return null;
+        return [];
     }
 
     const {data, error} = await supabase.from("Gatherings").select("*").eq("hostID", userData.id).gt("time", new Date().toISOString());
 
     if(error) {
         console.log("failed to retrieve current gatherings" + error.message);
-        return undefined;
+        return [];
     } else {
         return data;
     }
@@ -153,14 +153,14 @@ export async function getPastGatherings() {
     let userData = await getCurrentUserData();
 
     if(!userData) {
-        return null;
+        return [];
     }
 
     const {data, error} = await supabase.from("Gatherings").select("*").eq("hostID", userData.id).lt("time", new Date().toISOString());
 
     if(error) {
         console.log("failed to retrieve current gatherings" + error.message);
-        return undefined;
+        return [];
     } else {
         return data;
     }
