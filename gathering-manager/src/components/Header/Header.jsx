@@ -3,6 +3,7 @@ import { FaRegUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { GoogleLogin, googleLogout } from "@react-oauth/google";
 import { jwtDecode } from "jwt-decode";
+import { getCurrentUserData, registerUser } from "../../api/data";
 
 function Header() {
     const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
@@ -16,6 +17,9 @@ function Header() {
             localStorage.setItem("userName", decoded.name);
             localStorage.setItem("userImage", decoded.picture);
             window.location.reload();
+            if(!getCurrentUserData()) {
+                registerUser(localStorage.getItem("userName"), localStorage.getItem("userEmail"));
+            }
         } catch (error) {
             console.error("Error decoding token", error);
         }

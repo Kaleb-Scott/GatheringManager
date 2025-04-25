@@ -5,6 +5,20 @@ export async function getUsers() {
     return data;
 }
 
+export async function registerUser(username, email) {
+    const {error} = await supabase.from("Users").insert({
+        username: username,
+        email: email
+    });
+
+    if(error) {
+        console.log("Failed to register user.");
+        return false;
+    } else {
+        return true;
+    }
+}
+
 export async function getPublicGatherings() {
     const {data, error} = await supabase.from("Gatherings").select("*").eq("isPublic", true);
 
@@ -89,7 +103,7 @@ export async function getCurrentUserData() {
         return null;
     }
 
-    const {data, error} = await supabase.from("Users").select("*").eq("email", localStorage.getItem("email")).single();
+    const {data, error} = await supabase.from("Users").select("*").eq("email", localStorage.getItem("userEmail")).single();
     //const {data, error} = await supabase.from("Users").select("*").eq("email", "Ben@Yahoo.com").single();
 
     if(error) {
@@ -137,7 +151,7 @@ export async function getCurrentGatherings() {
         return [];
     }
 
-    const {data, error} = await supabase.from("Gatherings").select("*").eq("hostID", userData.id).gt("time", new Date().toISOString());
+    const {data, error} = await supabase.from("Gatherings").select("*").eq("hostID", userData.id).gt("time", new Date().toLocaleString());
 
     if(error) {
         console.log("failed to retrieve current gatherings" + error.message);
@@ -156,7 +170,7 @@ export async function getPastGatherings() {
         return [];
     }
 
-    const {data, error} = await supabase.from("Gatherings").select("*").eq("hostID", userData.id).lt("time", new Date().toISOString());
+    const {data, error} = await supabase.from("Gatherings").select("*").eq("hostID", userData.id).lt("time", new Date().toLocaleString());
 
     if(error) {
         console.log("failed to retrieve current gatherings" + error.message);

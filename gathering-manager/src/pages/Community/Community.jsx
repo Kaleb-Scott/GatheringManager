@@ -71,8 +71,10 @@ function Community() {
 export default Community;*/
 
 import Header from "../../components/Header/Header";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./Community.module.css";
+import Select from "react-select";
+import { getTags } from "../../api/data";
 
 const eventsData = [
   {
@@ -218,6 +220,21 @@ const eventsData = [
 ];
 
 function Community() {
+  const [availableTags, setAvailableTags] = useState([]);
+  const [selectedOptions, setSelectedOptions] = useState([]);
+
+  useEffect(() => {
+    getAvailableTags();
+  }, []);
+
+  async function getAvailableTags() {
+    setAvailableTags(await getTags());
+  }
+
+  const handleChange = (selected) => {
+    setSelectedOptions(selected || []);
+  }
+
   const [currentPage, setCurrentPage] = useState(1);
   const eventsPerPage = 10;
 
@@ -235,10 +252,19 @@ function Community() {
           <br />
           Explore and join public events in your community.
         </p>
-        <div style={{ textAlign: "center" }}className="filters">
-                <input type="text" placeholder="Search by tag..... "   />
-                <input type ="date" />
-             </div>
+        <form style={{ textAlign: "center" }} className="filters" name="filters">
+          <input type="text" name="host" placeholder="Search by host..."   />
+          <Select
+          name="tags"
+          options={availableTags.map((tag) => ({value: tag, label: tag}))}
+          value={selectedOptions}
+          onChange={handleChange}
+          placeholder="Filter by tags..."
+          isMulti
+          />
+          <input type="date" name="date" />
+
+        </form>
 
         <div className={styles.outerContentBox}>
           {currentEvents.map((event) => (
