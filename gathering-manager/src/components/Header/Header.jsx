@@ -53,7 +53,7 @@ function Header() {
                                 <FaRegUserCircle onClick={handleLogOut} />
                             ) : (
                                 <GoogleLogin
-                                    onSuccess={() => {console.log("test"); handleLogin();}}
+                                    onSuccess={handleLogin}
                                     onError={() => console.log("Login Failed")}
                                 />
                             )}
