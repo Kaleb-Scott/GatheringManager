@@ -110,39 +110,49 @@
   
   /* Hero Section */
   .hero {
-    margin-top: 10px;
-    background-image: url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1400&q=80');
+    background-image: url('../../assets/welcomes.jpg');
     background-size: cover;
     background-position: center;
-    padding: 150px 20px;
-    text-align: center;
+    height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: white;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
   }
+  
   
   .heroContent h1 {
     font-size: 48px;
     margin-bottom: 20px;
+    font-weight: bold;
   }
   
   .heroContent p {
     font-size: 20px;
     margin-bottom: 50px;
+    font-weight: bold;
   }
   
   .ctaButton {
+  
+    margin: 0 auto;
     background-color: #007bff;
     color: white;
-    padding: 12px 30px;
+    padding: 10px 50px;
     font-size: 18px;
     border: none;
     border-radius: 30px;
     cursor: pointer;
     text-decoration: none;
     transition: background-color 0.3s;
+    
+  
   }
   
   .ctaButton:hover {
     background-color: #0056b3;
+    display: center;
   }
   
   /* About Section */
@@ -151,6 +161,7 @@
     max-width: 800px;
     margin: 0 auto;
     text-align: center;
+    
   }
   
   .aboutSection h2 {
@@ -162,9 +173,16 @@
   .aboutSection p {
     font-size: 18px;
     color: #666;
+  
+  }
+  .heroImage {
+    width: 10%;
+    height: auto;
+    object-fit: cover;
   }
   
-  /* Newsletter Signup */
+  
+  /* Newsletter Signup 
   .newsletterSection {
     padding: 60px 20px;
     background-color: #eef6fc;
@@ -195,5 +213,5 @@
   
   .newsletterForm button:hover {
     background-color: #0056b3;
-  }
+  }*/
   
