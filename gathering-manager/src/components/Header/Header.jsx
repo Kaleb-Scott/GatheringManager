@@ -18,7 +18,7 @@ function Header() {
             localStorage.setItem("userEmail", decoded.email);
             localStorage.setItem("userName", decoded.name);
             localStorage.setItem("userImage", decoded.picture);
-            //window.location.reload();
+            window.location.reload();
             //console.log("after pulling data")
             const userData = await getCurrentUserData();
             if(!userData) {
