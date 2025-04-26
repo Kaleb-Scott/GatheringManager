@@ -9,7 +9,9 @@ function Header() {
     const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
     function handleLogin(credentialResponse) {
+        console.log("in login 1");
         try {
+            console.log("in login");
             const decoded = jwtDecode(credentialResponse.credential);
             console.log("Decoded User:", decoded);
             localStorage.setItem("isLoggedIn", "true");
@@ -17,7 +19,9 @@ function Header() {
             localStorage.setItem("userName", decoded.name);
             localStorage.setItem("userImage", decoded.picture);
             window.location.reload();
+            console.log("after pulling data")
             if(!getCurrentUserData()) {
+                console.log("registering user");
                 registerUser(localStorage.getItem("userName"), localStorage.getItem("userEmail"));
             }
         } catch (error) {
@@ -26,6 +30,7 @@ function Header() {
     }
 
     function handleLogOut() {
+        console.log("in logout");
         googleLogout();
         localStorage.setItem("isLoggedIn", "false");
         localStorage.removeItem("userEmail");
@@ -48,7 +53,7 @@ function Header() {
                                 <FaRegUserCircle onClick={handleLogOut} />
                             ) : (
                                 <GoogleLogin
-                                    onSuccess={handleLogin}
+                                    onSuccess={() => {console.log("test"); handleLogin();}}
                                     onError={() => console.log("Login Failed")}
                                 />
                             )}

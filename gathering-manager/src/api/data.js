@@ -6,6 +6,7 @@ export async function getUsers() {
 }
 
 export async function registerUser(username, email) {
+    console.log("in register")
     const {error} = await supabase.from("Users").insert({
         username: username,
         email: email
@@ -15,6 +16,7 @@ export async function registerUser(username, email) {
         console.log("Failed to register user.");
         return false;
     } else {
+        console.log("success")
         return true;
     }
 }
