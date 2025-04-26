@@ -52,31 +52,20 @@ export default Test*/
 import { Link } from "react-router-dom";
 import Header from "../../components/Header/Header"; 
 import styles from "./Home.module.css";
-import { useState } from "react";
+
+import welcomesImage from "../../assets/welcomes.jpg"; 
 
 function HomePage() {
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-
-  function handleSubscribe(event) {
-    event.preventDefault();
-    // Simple email validation
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (emailPattern.test(email)) {
-      setMessage("✅ Thank you for subscribing to Arise & Shine Events! Please check your inbox and mark us as safe.");
-      setEmail("");
-    } else {
-      setMessage("❗ Please enter a valid email address.");
-    }
-  }
-
+  
   return (
     <>
       <Header /> {/* use the common sticky Header */}
       <div className={styles.container}>
         
         {/* Hero Section */}
+
         <section className={styles.hero}>
+        <img src={welcomesImage} alt="Welcomes" className={styles.heroImage} />
           <div className={styles.heroContent}>
             <h1>Welcome to Arise and Shine Events!</h1>
             <p>Connecting Communities Through Memorable Gatherings</p>
@@ -92,22 +81,7 @@ function HomePage() {
           </p>
         </section>
 
-        {/* Newsletter Signup */}
-        <section className={styles.newsletterSection}>
-          <h2>Stay Updated</h2>
-          <p>Subscribe to our newsletter for the latest community events and gatherings!</p>
-          <form className={styles.newsletterForm} onSubmit={handleSubscribe}>
-            <input 
-              type="email" 
-              placeholder="Enter your email" 
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-            <button type="submit">Subscribe</button>
-          </form>
-          {message && <p className={styles.message}>{message}</p>}
-        </section>
+       
 
       </div>
     </>
