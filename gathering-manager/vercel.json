@@ -1,0 +1,10 @@
+{
+  "api": {
+    "directory": "src/api"
+  },
+  "functions": {
+    "src/api/sendReminder.js": {
+      "schedule": "0 3 * * *"
+    }
+  }
+}
