@@ -1,74 +1,3 @@
-/*import Header from "../../components/Header/Header";
-import styles from "./Community.module.css";
-//import { FaTag, FaUserPlus } from "react-icons/fa";
-
-
-const eventsData = [
-  {
-    id: 1,
-    title: "Birthday Bash",
-    time: "2025-05-10T17:00",
-    description: "Celebrate Alex's 30th birthday!",
-    tags: ["Birthday", "Party"],
-  },
-  {
-    id: 2,
-    title: "University Symposium",
-    time: "2025-05-12T10:00",
-    description: "Annual tech and research showcase.",
-    tags: ["Education", "Tech"],
-  },
-  {
-    id: 3,
-    title: "Summer Cookout",
-    time: "2025-06-01T14:00",
-    description: "Join us for a fun summer gathering in the park.",
-    tags: ["Outdoor", "Food"],
-  },
-];
-
-function Community() {
-  return (
-    <>
-      <Header />
-      <main className="community-page">
-        <h1 style={{ textAlign: "center" }}>Community Page</h1>
-        <p style={{ textAlign: "center" }}>
-          Welcome to Arise and Shine Event
-          <br />
-          Explore and join public events in your community.
-        </p>
-        <div style={{ textAlign: "center" }}className="filters">
-                <input type="text" placeholder="Search by tag..... "   />
-                <input type ="date" />
-             </div>
-
-        <div className={styles.outerContentBox}>
-          {eventsData.map((event) => (
-            <div key={event.id} className={styles.innerContentBox}>
-              <div className={styles.titleAndTime}>
-                  <h2 className={styles.eventTitle}>{event.title}</h2>
-                  <p className={styles.eventTime}>
-                    <strong>Time:</strong> {new Date(event.time).toLocaleString()}
-                  </p>
-                </div>
-
-              <p>{event.description}</p>
-              <div className={styles.tags}>
-                {event.tags.map((tag, index) => (
-                  <span key={index} className={styles.tag}>{tag}</span>
-                ))}
-              </div>
-              <br />
-              <button className={styles.joinButton}>Join</button>
-            </div>
-          ))}
-        </div>
-      </main>
-    </>
-  );
-}
-export default Community;*/
 
 import Header from "../../components/Header/Header";
 import { useEffect, useState } from "react";
@@ -252,19 +181,18 @@ function Community() {
           <br />
           Explore and join public events in your community.
         </p>
-        <form style={{ textAlign: "center" }} className="filters" name="filters">
-          <input type="text" name="host" placeholder="Search by host..."   />
-          <Select
-          name="tags"
-          options={availableTags.map((tag) => ({value: tag, label: tag}))}
-          value={selectedOptions}
-          onChange={handleChange}
-          placeholder="Filter by tags..."
-          isMulti
-          />
-          <input type="date" name="date" />
+        <form style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "20px" }} className="filters" name="filters">
+  <Select
+    name="tags"
+    options={availableTags.map((tag) => ({ value: tag, label: tag }))}
+    value={selectedOptions}
+    onChange={handleChange}
+    placeholder="Filter by tags..."
+    isMulti
+  />
+  <input type="date" name="date" />
+</form>
 
-        </form>
 
         <div className={styles.outerContentBox}>
           {currentEvents.map((event) => (
@@ -288,9 +216,10 @@ function Community() {
         </div>
 
         <div className={styles.pagination}>
-          <button onClick={() => setCurrentPage(1)} disabled={currentPage === 1}>1</button>
-          <button onClick={() => setCurrentPage(2)} disabled={currentPage === 2}>2</button>
+            <button onClick={() => setCurrentPage(1)} disabled={currentPage === 1}>1</button>
+            <button onClick={() => setCurrentPage(2)} disabled={currentPage === 2}>2</button>
         </div>
+
       </main>
     </>
   );
