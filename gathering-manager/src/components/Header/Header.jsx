@@ -8,7 +8,7 @@ import { getCurrentUserData, registerUser } from "../../api/data";
 function Header() {
     const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
 
-    function handleLogin(credentialResponse) {
+    async function handleLogin(credentialResponse) {
         console.log("in login 1");
         try {
             console.log("in login");
@@ -18,9 +18,10 @@ function Header() {
             localStorage.setItem("userEmail", decoded.email);
             localStorage.setItem("userName", decoded.name);
             localStorage.setItem("userImage", decoded.picture);
-            window.location.reload();
-            console.log("after pulling data")
-            if(!getCurrentUserData()) {
+            //window.location.reload();
+            //console.log("after pulling data")
+            const userData = await getCurrentUserData();
+            if(!userData) {
                 console.log("registering user");
                 registerUser(localStorage.getItem("userName"), localStorage.getItem("userEmail"));
             }

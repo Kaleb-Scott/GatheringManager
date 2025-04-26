@@ -13,7 +13,7 @@ export async function registerUser(username, email) {
     });
 
     if(error) {
-        console.log("Failed to register user.");
+        console.log("Failed to register user." + error.message);
         return false;
     } else {
         console.log("success")
