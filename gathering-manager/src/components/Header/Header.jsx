@@ -45,6 +45,7 @@ function Header() {
             <nav className={styles.navbar}>
                 <div>
                     <ul>
+                    <div className={styles.logo}>Arise & Shine Events</div>
                         <li><Link to="/">Home</Link></li>
                         <li><Link to="/community">Public Gatherings</Link></li>
                         <li><Link to="/gatherings">Manage Gatherings</Link></li>
