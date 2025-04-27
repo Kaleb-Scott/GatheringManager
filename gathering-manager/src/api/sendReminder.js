@@ -2,6 +2,9 @@ import { sendEmail } from '../sendEmail.js';
 import supabase from './supabase-client.js';
 
 export default async function handler(req, res) {
+
+  sendEmail("kalebmscott1029@gmail.com");
+
   let startTime = new Date();
   let endTime = new Date(startTime);
   endTime.setDate(endTime.getDate() + 1);
