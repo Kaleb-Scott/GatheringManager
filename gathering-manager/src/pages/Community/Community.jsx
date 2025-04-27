@@ -243,10 +243,13 @@ function Community() {
   return (
     <>
       <Header />
+      
       <main className="community-page">
-        <h1 style={{ textAlign: "center" }}>Community Page</h1>
-        <p style={{ textAlign: "center" }}>
-          Welcome to Arise and Shine Event
+      <div className={styles.outerContentBox}>
+        
+         <h1 className={styles.communityHeader}>Community Page</h1>
+        <p style={{ textAlign: "center",fontSize:20}}>
+          Welcome to Arise and Shine Events
           <br />
           Explore and join public events in your community.
         </p>
@@ -269,7 +272,7 @@ function Community() {
         </form>
 
 
-        <div className={styles.outerContentBox}>
+        
           {currentEvents.map((event) => (
             <div key={event.id} className={styles.innerContentBox}>
               <div className={styles.titleAndTime}>
