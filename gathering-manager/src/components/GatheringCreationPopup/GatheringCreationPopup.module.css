@@ -15,9 +15,10 @@
     display: flex;
     flex-direction: column;
     padding: 25px;
-    background-color: white;
+    background-color:#4B9CD3;
     border: 3px solid black;
     border-radius: 20px;
+    font-weight: bold;
 }
 
 .dataArea {
@@ -26,23 +27,49 @@
     align-items: stretch;
 }
 
-.submitButton{
+
+.buttons {
+    display: flex;
+    justify-content: space-between; /* spreads them nicely */
+    gap: 10px; /* small space between buttons */
+    width: 100%;
+}
+
+.submitButton, .cancelButton {
     margin: 5px;
     width: 50%;
-    height: 50%;
-    
+    padding: 10px; /* make the buttons a little taller and more clickable */
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+/* Specific colors for each button */
+.submitButton {
+    background-color: #4CAF50; /* nice green */
+    color: white;
 }
 
 .cancelButton {
-    margin: 5px;
-    width: 50%;
+    background-color: #f44336; /* nice red */
+    color: white;
 }
+
+/* Hover effects */
+.submitButton:hover {
+    background-color: #45a049;
+}
+
+.cancelButton:hover {
+    background-color: #d32f2f;
+}
+
 
 .time {
     justify-self: right;
 }
 
-.buttons {
-    display: flex;
-    width: 100%;
-}
