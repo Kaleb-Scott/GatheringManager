@@ -16,6 +16,7 @@
     flex-direction: column;
     padding: 25px;
     background-color:#4B9CD3;
+    background: linear-gradient(to right, #f0f4ff, #e4ecff);
     border: 3px solid black;
     border-radius: 20px;
     font-weight: bold;
@@ -50,12 +51,12 @@
 
 /* Specific colors for each button */
 .submitButton {
-    background-color: #4CAF50; /* nice green */
+    background-color: #3182ce; /* nice green */
     color: white;
 }
 
 .cancelButton {
-    background-color: #f44336; /* nice red */
+    background-color: #3182ce; /* nice red */
     color: white;
 }
 
