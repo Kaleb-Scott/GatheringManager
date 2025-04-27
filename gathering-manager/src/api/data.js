@@ -22,12 +22,67 @@ export async function registerUser(username, email) {
 }
 
 export async function getPublicGatherings() {
-    const {data, error} = await supabase.from("Gatherings").select("*").eq("isPublic", true);
+    const {data, error} = await supabase.from("Gatherings").select("*").eq("isPublic", true).gt("time", new Date().toLocaleString());
 
     if(error || !data) {
         console.log("Failed to retrieve public gathering data.");
     } else {
         return data;
+    }
+}
+
+export async function getPublicGatheringsPaginated(from, to, tagFilter, dateFilter, searchType) {
+    
+    console.log(`tagFilter: ${tagFilter}  dateFilter: ${dateFilter}`);
+
+    let query = supabase
+    .from("Gatherings")
+    .select("*")
+    .eq("isPublic", true)
+    //.gt("time", new Date().toLocaleString());
+
+    if(dateFilter) {
+        let startTime = new Date(dateFilter);
+        let endTime = new Date(dateFilter);
+        startTime.setHours(0, 0, 0, 1);
+        endTime.setHours(23, 59, 59, 999);
+
+        console.log(`startTime: ${startTime.toLocaleString()} endTime: ${endTime.toLocaleString()}`)
+
+        query = query.gte(startTime.toLocaleString()).lte(endTime.toLocaleString());
+    }
+
+    if(tagFilter.length) {
+        if(searchType === "AND") {
+            query = query.contains("Tags", tagFilter);
+        } else {
+            query = query.overlaps("Tags", tagFilter);
+        }
+    }
+
+    query = query.range(from, to);
+
+    const {data, error} = await query;
+
+    if(error || !data) {
+        console.log("Failed to retrieve public gathering data. " + (error ? error.message : ""));
+        return [];
+    } else {
+        return data;
+    }
+}
+
+export async function getNumberOfUpcomingPublicGatherings() {
+    const {count, error} = await supabase
+    .from("Gatherings")
+    .select("*", {count: 'exact'})
+    .eq("isPublic", true)
+    .gt("time", new Date().toLocaleString());
+
+    if(error) {
+        console.log("Failed to retrieve count. " + error.message);
+    } else {
+        return count;
     }
 }
 
@@ -134,7 +189,7 @@ export async function getRegisteredGatherings() {
 
     let ids = rsvpData.map(id => id.gatheringID);
 
-    const {data: resultData, error: resultError} = await supabase.from("Gatherings").select("*").in("id", ids).gt("time", new Date().toISOString());
+    const {data: resultData, error: resultError} = await supabase.from("Gatherings").select("*").in("id", ids).gt("time", new Date().toLocaleString());
 
     if(resultError) {
         console.log("Failed to retrieve registered Gatherings: " + resultError.message);
@@ -236,8 +291,8 @@ export async function rsvpUser(gatheringID) {
     console.log(checkData);
     console.log("error" + checkError);
 
-    if(checkData.length || checkError) {
-        console.log("some error");
+    if(checkError || checkData.length) {
+        console.log("some error " + (checkError ? checkError.message : ""));
         return false;
     }
     const {data: insertData, error: insertError} = await supabase.from("RSVP").insert([{

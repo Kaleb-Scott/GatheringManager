@@ -3,8 +3,9 @@ import Header from "../../components/Header/Header";
 import { useEffect, useState } from "react";
 import styles from "./Community.module.css";
 import Select from "react-select";
-import { getTags } from "../../api/data";
+import { getGatheringByRSVPCode, getPublicGatherings, getPublicGatheringsPaginated, getTags, rsvpUser } from "../../api/data";
 
+/*
 const eventsData = [
   {
     id: 1,
@@ -147,14 +148,84 @@ const eventsData = [
     tags: ["Local", "Food"],
   },
 ];
+*/
 
 function Community() {
   const [availableTags, setAvailableTags] = useState([]);
   const [selectedOptions, setSelectedOptions] = useState([]);
+  const [searchOption, setSearchOption] = useState("");
+  const [tagFilter, setTagFilter] = useState([]);
+  const [dateFilter, setDateFilter] = useState("");
+  const [currentEvents, setCurrentEvents] = useState([]);
+  const [nextPage, setNextPage] = useState(1);
+  const eventsPerPage = 10;
+
 
   useEffect(() => {
     getAvailableTags();
   }, []);
+
+  useEffect(() => {
+    getNextPage();
+  }, []);
+
+  async function getNextPage() {
+
+    console.log("in nextPage " + dateFilter);
+    let data = await getPublicGatheringsPaginated(
+      nextPage + (eventsPerPage * (nextPage - 1)),
+      nextPage + (eventsPerPage * nextPage),
+      tagFilter,
+      dateFilter,
+      searchOption
+    );
+
+    console.log(data);
+
+    if (data.length === 0) { return; }
+
+    setNextPage(nextPage + 1);
+    setCurrentEvents(data);
+  }
+
+  async function getPreviousPage() {
+
+
+    let data = await getPublicGatheringsPaginated(
+      nextPage - 1 + (eventsPerPage * (nextPage - 2)),
+      nextPage - 1 + (eventsPerPage * (nextPage - 1)),
+      tagFilter,
+      dateFilter,
+      searchOption
+    );
+
+    console.log(data);
+
+    if (data.length === 0) { return; }
+
+    setNextPage(nextPage - 1);
+    setCurrentEvents(data);
+  }
+  
+  function handleSubmit() {
+    setTagFilter(selectedOptions.map((tag) => tag.value));
+    let tmp = document.filters.date.value;
+    setDateFilter((tmp ? new Date(tmp).toLocaleDateString() : tmp));
+    console.log(document.filters.date.value);
+    console.log(new Date(tmp).toLocaleDateString());
+    setNextPage(1);
+    getNextPage();
+  }
+
+  async function rsvp(event) {
+    let response = await rsvpUser(event.id);
+
+    if(response) {
+      alert("RSVP successful!");
+    } else {
+      alert("Failed to RSVP!");
+    }
+  }
 
   async function getAvailableTags() {
     setAvailableTags(await getTags());
@@ -164,12 +235,10 @@ function Community() {
     setSelectedOptions(selected || []);
   }
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const eventsPerPage = 10;
 
-  const indexOfLastEvent = currentPage * eventsPerPage;
-  const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
-  const currentEvents = eventsData.slice(indexOfFirstEvent, indexOfLastEvent);
+  //const indexOfLastEvent = currentPage * eventsPerPage;
+  //const indexOfFirstEvent = indexOfLastEvent - eventsPerPage;
+  //const currentEvents = eventsData.slice(indexOfFirstEvent, indexOfLastEvent);
 
   return (
     <>
@@ -182,42 +251,48 @@ function Community() {
           Explore and join public events in your community.
         </p>
         <form style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "20px" }} className="filters" name="filters">
-  <Select
-    name="tags"
-    options={availableTags.map((tag) => ({ value: tag, label: tag }))}
-    value={selectedOptions}
-    onChange={handleChange}
-    placeholder="Filter by tags..."
-    isMulti
-  />
-  <input type="date" name="date" />
-</form>
+          <Select
+            name="tags"
+            options={availableTags.map((tag) => ({ value: tag, label: tag }))}
+            value={selectedOptions}
+            onChange={handleChange}
+            placeholder="Filter by tags..."
+            isMulti
+          />
+          <input type="date" name="date" />
+          <label htmlFor="searchType">Search Type:</label>
+          <select name="searchType" value={searchOption} onChange={(event) => setSearchOption(event.target.value)}>
+            <option value="AND">AND</option>
+            <option value="OR">OR</option>
+          </select>
+          <button type="button" className={styles.joinButton} onClick={handleSubmit}>Submit</button>
+        </form>
 
 
         <div className={styles.outerContentBox}>
           {currentEvents.map((event) => (
             <div key={event.id} className={styles.innerContentBox}>
               <div className={styles.titleAndTime}>
-                  <h2 className={styles.eventTitle}>{event.title}</h2>
-                  <p className={styles.eventTime}>
-                    <strong>Time:</strong> {new Date(event.time).toLocaleString()}
-                  </p>
-                </div>
+                <h2 className={styles.eventTitle}>{event.name}</h2>
+                <p className={styles.eventTime}>
+                  <strong>Time:</strong> {new Date(event.time).toLocaleString()}
+                </p>
+              </div>
               <p>{event.description}</p>
               <div className={styles.tags}>
-                {event.tags.map((tag, index) => (
+                {event.Tags.map((tag, index) => (
                   <span key={index} className={styles.tag}>{tag}</span>
                 ))}
               </div>
               <br />
-              <button className={styles.joinButton}>Join</button>
+              <button className={styles.joinButton} onClick={() => rsvp(event)}>Join</button>
             </div>
           ))}
         </div>
 
         <div className={styles.pagination}>
-            <button onClick={() => setCurrentPage(1)} disabled={currentPage === 1}>1</button>
-            <button onClick={() => setCurrentPage(2)} disabled={currentPage === 2}>2</button>
+          <button onClick={() => getPreviousPage()}>1</button>
+          <button onClick={() => getNextPage()}>2</button>
         </div>
 
       </main>
