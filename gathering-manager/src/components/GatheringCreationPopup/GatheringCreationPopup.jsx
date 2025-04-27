@@ -72,10 +72,14 @@ const GatheringCreationPopup = ({ onClose }) => {
                     />
                     <label htmlFor="description">Description:</label>
                     <textarea name="description" id="description" required></textarea>
+
+                    
                     <div className={styles.buttons}>
-                        <input className={styles.submitButton} type="submit" value="Submit"/>
-                        <button className={styles.cancelButton} onClick={handleClose}>Cancel</button>
+                        <button className={styles.submitButton} type="submit">Submit</button>
+                        <button className={styles.cancelButton} type="button" onClick={handleClose}>Cancel</button>
                     </div>
+
+
                 </form>
             </div>
         </div>
