@@ -183,27 +183,36 @@ function GatheringsPage() {
                 </button>
 
                 <div className={styles.contentBox}>
-                    <table>
-                        <tbody>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th>Gatherings</th>
+                                <th>Time</th>
+                                <th>View</th>
+                                <th>Unregister</th>
+                            </tr>
+                            </thead>
+                            <tbody>
                             {registeredGatherings.map(data => (
                                 <tr key={data.id}>
-                                    <td>{data.name}</td>
-                                    <td>{new Date(data.time).toLocaleString()}</td>
-                                    <td>
-                                        <button onClick={() => handleView(data)}>
-                                            <FaEye style={{ marginRight: "0.5rem" }} /> View
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button onClick={() => handleUnregister(data)}>
-                                            <FaUserTimes style={{ marginRight: "0.5rem" }} /> Unregister
-                                        </button>
-                                    </td>
+                                <td>{data.name}</td>
+                                <td>{new Date(data.time).toLocaleString()}</td>
+                                <td>
+                                    <button onClick={() => handleView(data)}>
+                                    <FaEye style={{ marginRight: "0.5rem" }} /> View
+                                    </button>
+                                </td>
+                                <td>
+                                    <button onClick={() => handleUnregister(data)}>
+                                    <FaUserTimes style={{ marginRight: "0.5rem" }} /> Unregister
+                                    </button>
+                                </td>
                                 </tr>
                             ))}
-                        </tbody>
-                    </table>
+                            </tbody>
+                        </table>
                 </div>
+
 
                 <h2>Your current gatherings.</h2>
                 <button onClick={() => setIsCreationPopupOpen(true)}>
@@ -212,57 +221,78 @@ function GatheringsPage() {
 
                 <div className={styles.contentBox}>
                     <table>
+                        <thead>
+                        <tr>
+                            <th>Gatherings</th>
+                            <th>Time</th>
+                            <th>RSVP Code</th>
+                            <th>Attendance Code</th>
+                            <th>New Codes</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
                         <tbody>
-                            {currentGatherings.map(data => (
-                                <tr key={data.id}>
-                                    <td>{data.name}</td>
-                                    <td>{new Date(data.time).toLocaleString()}</td>
-                                    <td>{data.rsvp_code}</td>
-                                    <td>{data.attendance_code}</td>
-                                    <td>
-                                        <button onClick={() => handleRegen(data)}>
-                                            <FaCode style={{ marginRight: "0.5rem" }} /> New Codes
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button onClick={() => handleEdit(data)}>
-                                            <FaEdit style={{ marginRight: "0.5rem" }} /> Edit
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button onClick={() => handleDelete(data)}>
-                                            <FaTrash style={{ marginRight: "0.5rem" }} /> Delete
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
+                        {currentGatherings.map(data => (
+                            <tr key={data.id}>
+                            <td>{data.name}</td>
+                            <td>{new Date(data.time).toLocaleString()}</td>
+                            <td>{data.rsvp_code}</td>
+                            <td>{data.attendance_code}</td>
+                            <td>
+                                <button onClick={() => handleRegen(data)}>
+                                <FaCode style={{ marginRight: "0.5rem" }} /> New Codes
+                                </button>
+                            </td>
+                            <td>
+                                <button onClick={() => handleEdit(data)}>
+                                <FaEdit style={{ marginRight: "0.5rem" }} /> Edit
+                                </button>
+                            </td>
+                            <td>
+                                <button onClick={() => handleDelete(data)}>
+                                <FaTrash style={{ marginRight: "0.5rem" }} /> Delete
+                                </button>
+                            </td>
+                            </tr>
+                        ))}
                         </tbody>
                     </table>
-                </div>
+</div>
+
 
                 <h2>Your past gatherings.</h2>
                 <div className={styles.contentBox}>
                     <table>
+                        <thead>
+                        <tr>
+                            <th>Gatherings</th>
+                            <th>Time</th>
+                            <th>View</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
                         <tbody>
-                            {pastGatherings.map(data => (
-                                <tr key={data.id}>
-                                    <td>{data.name}</td>
-                                    <td>{new Date(data.time).toLocaleString()}</td>
-                                    <td>
-                                        <button onClick={() => handleView(data)}>
-                                            <FaEye style={{ marginRight: "0.5rem" }} /> View
-                                        </button>
-                                    </td>
-                                    <td>
-                                        <button onClick={() => handleDelete(data)}>
-                                            <FaTrash style={{ marginRight: "0.5rem" }} /> Delete
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
+                        {pastGatherings.map(data => (
+                            <tr key={data.id}>
+                            <td>{data.name}</td>
+                            <td>{new Date(data.time).toLocaleString()}</td>
+                            <td>
+                                <button onClick={() => handleView(data)}>
+                                <FaEye style={{ marginRight: "0.5rem" }} /> View
+                                </button>
+                            </td>
+                            <td>
+                                <button onClick={() => handleDelete(data)}>
+                                <FaTrash style={{ marginRight: "0.5rem" }} /> Delete
+                                </button>
+                            </td>
+                            </tr>
+                        ))}
                         </tbody>
                     </table>
-                </div>
+</div>
+
                 </div>
             </main>
         </>
