@@ -37,33 +37,42 @@ function Stats() {
     return (
         <>
             <Header />
-            <div>
-            <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip />
-                    <Legend />
-                    <Bar dataKey="value" fill="#8884d8" />
-                </BarChart>
-            </ResponsiveContainer>
-            <ResponsiveContainer width="100%" height={300}>
-                <PieChart width={400} height={400}>
-                    <Pie
+<div className={styles.statsPage}>
+    <h1 className={styles.title}>Statistics Dashboard</h1>
+    <p className={styles.description}>Visual overview of your gatherings and activities</p>
+
+    <div className={styles.chartContainer}>
+        <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="name" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="value" fill="#4B9CD3" />
+            </BarChart>
+        </ResponsiveContainer>
+    </div>
+
+    <div className={styles.chartContainer}>
+        <ResponsiveContainer width="100%" height={300}>
+            <PieChart width={400} height={400}>
+                <Pie
                     dataKey="value"
                     startAngle={180}
                     endAngle={-180}
                     data={data}
                     cx="50%"
                     cy="50%"
-                    outerRadius={80}
-                    fill="#8884d8"
+                    outerRadius={100}
+                    fill="#4B9CD3"
                     label={({ name, value }) => `${name}: ${value}`}
-                    />
-                </PieChart>
-            </ResponsiveContainer>
-            </div>
+                />
+            </PieChart>
+        </ResponsiveContainer>
+    </div>
+</div>
+
         </>
     );
 }
