@@ -11,17 +11,39 @@ import { useEffect, useState } from "react";
 
 
 function Stats() {
-    const [data, setData] = useState(null);
+    const [tagData, setTagData] = useState([]);
+    const [gatheringsPerMonthData, setGatheringsPerMonthData] = useState([]);
+    const [tagData, setTagData] = useState([]);
+    const [gatheringsPerMonthData, setGatheringsPerMonthData] = useState([]);
 
-    async function test() {
-        const {data: statData, error: statError} = await supabase.rpc('testing', {input: 0});
-        if(statError) {console.log(statError)}
-        console.log(statData);
-        console.log(statData.value)
-        setData(statData.value);
+    async function getData() {
+        const {data: tagResponse, error: tagError} = await supabase.rpc('get_Number_Of_Gatherings_Per_Tag', {input: 0});
+        if(tagError) {console.log(tagError.message)}
+        console.log(tagResponse);
+        console.log(tagResponse.value)
+        setTagData(tagResponse.value);
+
+        const {data: gpmData, error: gpmError} = await supabase.rpc('get_Gatherings_Per_Month', {input: 0});
+
+        if(gpmError) {console.log(gpmError.message)}
+
+        setGatheringsPerMonthData(gpmData.value);
+    async function getData() {
+        const {data: tagResponse, error: tagError} = await supabase.rpc('get_Number_Of_Gatherings_Per_Tag', {input: 0});
+        if(tagError) {console.log(tagError.message)}
+        console.log(tagResponse);
+        console.log(tagResponse.value)
+        setTagData(tagResponse.value);
+
+        const {data: gpmData, error: gpmError} = await supabase.rpc('get_Gatherings_Per_Month', {input: 0});
+
+        if(gpmError) {console.log(gpmError.message)}
+
+        setGatheringsPerMonthData(gpmData.value);
     }
     
-    useEffect(() => {test();}, []);
+    useEffect(() => {getData();}, []);
+    useEffect(() => {getData();}, []);
 
     if (localStorage.getItem("isLoggedIn") !== "true") {
         return (
@@ -61,7 +83,8 @@ function Stats() {
                     dataKey="value"
                     startAngle={180}
                     endAngle={-180}
-                    data={data}
+                    data={tagData}
+                    data={tagData}
                     cx="50%"
                     cy="50%"
                     outerRadius={100}
