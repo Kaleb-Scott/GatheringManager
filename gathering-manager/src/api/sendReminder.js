@@ -29,7 +29,7 @@ export default async function handler(req, res) {
     .select("*")
     .eq("gatheringID", gathering.id);
 
-    if(error) {
+    if(rsvpError) {
       console.log("Failed to retrieve RSVP data for a gathering: " + error.message);
       continue;
     }
