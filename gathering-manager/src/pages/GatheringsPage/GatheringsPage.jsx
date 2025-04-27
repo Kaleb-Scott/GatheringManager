@@ -166,6 +166,7 @@ function GatheringsPage() {
                 {isCreationPopupOpen && (<GatheringCreationPopup onClose={setIsCreationPopupOpen} />)}
                 {isUpdatePopupOpen && (<GatheringUpdatePopup isOpen={isUpdatePopupOpen} onClose={setIsUpdatePopupOpen} gathering={selectedGathering} />)}
                 {isViewPopupOpen && (<GatheringViewPopup isOpen={isViewPopupOpen} onClose={setIsViewPopupOpen} gathering={selectedGathering} />)}
+                <div className={styles.contentBox}> 
                 
                 <header>
                     <div>
@@ -175,7 +176,7 @@ function GatheringsPage() {
 
                 <h2>Gatherings you have signed up for.</h2>
                 <button onClick={confirmRSVPCode}>
-                    <FaCode style={{ marginRight: "0.5rem" }} /> RSVP Using Code
+                    <FaCode style={{ marginRight: "0.9rem" }} /> RSVP Using Code
                 </button>
                 <button onClick={confirmAttendanceCode}>
                     <FaUserCheck style={{ marginRight: "0.5rem" }} /> Enter Attendance Code
@@ -262,7 +263,7 @@ function GatheringsPage() {
                         </tbody>
                     </table>
                 </div>
-
+                </div>
             </main>
         </>
     );
