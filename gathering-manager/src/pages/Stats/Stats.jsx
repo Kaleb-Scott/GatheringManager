@@ -13,21 +13,7 @@ import { useEffect, useState } from "react";
 function Stats() {
     const [tagData, setTagData] = useState([]);
     const [gatheringsPerMonthData, setGatheringsPerMonthData] = useState([]);
-    const [tagData, setTagData] = useState([]);
-    const [gatheringsPerMonthData, setGatheringsPerMonthData] = useState([]);
 
-    async function getData() {
-        const {data: tagResponse, error: tagError} = await supabase.rpc('get_Number_Of_Gatherings_Per_Tag', {input: 0});
-        if(tagError) {console.log(tagError.message)}
-        console.log(tagResponse);
-        console.log(tagResponse.value)
-        setTagData(tagResponse.value);
-
-        const {data: gpmData, error: gpmError} = await supabase.rpc('get_Gatherings_Per_Month', {input: 0});
-
-        if(gpmError) {console.log(gpmError.message)}
-
-        setGatheringsPerMonthData(gpmData.value);
     async function getData() {
         const {data: tagResponse, error: tagError} = await supabase.rpc('get_Number_Of_Gatherings_Per_Tag', {input: 0});
         if(tagError) {console.log(tagError.message)}
@@ -42,7 +28,6 @@ function Stats() {
         setGatheringsPerMonthData(gpmData.value);
     }
     
-    useEffect(() => {getData();}, []);
     useEffect(() => {getData();}, []);
 
     if (localStorage.getItem("isLoggedIn") !== "true") {
@@ -65,7 +50,7 @@ function Stats() {
 
     <div className={styles.chartContainer}>
         <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={data} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+            <BarChart data={gatheringsPerMonthData} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="name" />
                 <YAxis />
@@ -83,7 +68,6 @@ function Stats() {
                     dataKey="value"
                     startAngle={180}
                     endAngle={-180}
-                    data={tagData}
                     data={tagData}
                     cx="50%"
                     cy="50%"
