@@ -1,217 +1,90 @@
-/*.container {
-    margin-top: 80px; /* leave space for sticky header 
-  }
-  
-  .hero {
-    background: url('https://images.unsplash.com/photo-1520975916090-31059590cf79?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
-    height: 70vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    text-align: center;
-  }
-  
-  .heroContent h1 {
-    font-size: 48px;
-    margin-bottom: 10px;
-  }
-  
-  .heroContent p {
-    font-size: 24px;
-    margin-bottom: 20px;
-  }
-  
-  .ctaButton {
-    background-color: #4B9CD3;
-    padding: 10px 20px;
-    color: white;
-    font-size: 18px;
-    border: none;
-    border-radius: 5px;
-    text-decoration: none;
-  }
-  
-  .aboutSection, .newsletterSection {
-    padding: 50px 20px;
-    text-align: center;
-  }
-  
-  .newsletterForm {
-    margin-top: 20px;
-  }
-  
-  .newsletterForm input {
-    padding: 10px;
-    width: 250px;
-    margin-right: 10px;
-  }
-  
-  .newsletterForm button {
-    background-color: #4B9CD3;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-  }
-  
-  .message {
-    margin-top: 10px;
-    font-weight: bold;
-    color: #333;
-  }*/
+
   .container {
-    margin-top: 10px; 
-    padding-top: 50px;
-    font-family: 'Poppins', sans-serif;
-    color: #333;
-    background-color: #f9f9f9;
-  }
-  
-  /* Navigation Bar */
-  .header {
-    background-color: #ffffff;
-    padding: 20px 0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  }
-  
-  .navbar {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-  
-  .logo {
-    font-size: 28px;
-    font-weight: bold;
-    color: #0056b3;
-    text-align: left;
-  }
-  
-  .navLinks {
-    list-style: none;
-    display: flex;
-    gap: 30px;
-  }
-  
-  .navLinks li a {
-    text-decoration: none;
-    color: #555;
-    font-weight: 500;
-    transition: color 0.3s;
-  }
-  
-  .navLinks li a:hover {
-    color: #007bff;
-  }
-  
-  /* Hero Section */
-  .hero {
-    background-image: url('../../assets/welcomes.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 90vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
-  }
-  
-  
-  .heroContent h1 {
-    font-size: 48px;
-    margin-bottom: 20px;
-    font-weight: bold;
-  }
-  
-  .heroContent p {
-    font-size: 20px;
-    margin-bottom: 50px;
-    font-weight: bold;
-  }
-  
-  .ctaButton {
-  
-    margin: 0 auto;
-    background-color: #007bff;
-    color: white;
-    padding: 10px 50px;
-    font-size: 18px;
-    border: none;
-    border-radius: 30px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: background-color 0.3s;
-    
-  
-  }
-  
-  .ctaButton:hover {
-    background-color: #0056b3;
-    display: center;
-  }
-  
-  /* About Section */
-  .aboutSection {
-    padding: 60px 20px;
-    max-width: 800px;
-    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Hero Section */
+.hero {
+    width: 120%;
+    position: relative;
     text-align: center;
+    color: #ffffff;
+    margin-top: 40px;
     
-  }
-  
-  .aboutSection h2 {
-    font-size: 36px;
-    color: #333;
-    margin-bottom: 20px;
-  }
-  
-  .aboutSection p {
-    font-size: 18px;
-    color: #666;
-  
-  }
-  .heroImage {
-    width: 10%;
-    height: auto;
+    
+}
+
+.heroImage {
+    width: 100%;
+    height: 600px;
     object-fit: cover;
-  }
-  
-  
-  /* Newsletter Signup 
-  .newsletterSection {
-    padding: 60px 20px;
-    background-color: #eef6fc;
-    text-align: center;
-  }
-  
-  .newsletterForm {
+    filter: brightness(70%);
+    background-size: cover;
+    
+    
+}
+
+.heroContent {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+}
+
+.heroTitle {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.heroSubtitle {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #e0e0e0;
+}
+
+.buttonWrapper {
     margin-top: 20px;
-  }
-  
-  .newsletterForm input[type="email"] {
-    padding: 10px;
-    width: 250px;
-    border: 1px solid #ccc;
+}
+
+.ctaButton {
+    background-color: #003366;
+    color: #ffffff;
+    padding: 12px 30px;
     border-radius: 30px;
-    margin-right: 10px;
-  }
-  
-  .newsletterForm button {
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.ctaButton:hover {
+    background-color: #0055aa;
+}
+
+/* About Section */
+.aboutSection {
+    text-align: center;
     padding: 10px 20px;
-    background-color: #007bff;
-    border: none;
-    border-radius: 30px;
-    color: white;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .newsletterForm button:hover {
-    background-color: #0056b3;
-  }*/
+    background-color: #f7f7f7;
+    border-radius: 20px;
+    max-width: 900px;
+    width: 100%;
+}
+
+.aboutTitle {
+    font-size: 3rem;
+    color: #003366;
+    margin-bottom: 20px;
+}
+
+.aboutText {
+    font-size: 1.2rem;
+    color: #555;
+    line-height: 1.6;
+}
+
   
