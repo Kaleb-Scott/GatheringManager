@@ -30,16 +30,17 @@ function Header() {
             localStorage.setItem("userEmail", decoded.email);
             localStorage.setItem("userName", decoded.name);
             localStorage.setItem("userImage", decoded.picture);
-            window.location.reload();
             //console.log("after pulling data")
             const userData = await getCurrentUserData();
             if(!userData) {
                 console.log("registering user");
+                console.log(`username: ${localStorage.getItem("userName")}  email: ${localStorage.getItem("userEmail")}`)
                 registerUser(localStorage.getItem("userName"), localStorage.getItem("userEmail"));
             }
         } catch (error) {
             console.error("Error decoding token", error);
         }
+        window.location.reload();
     }
 
     function handleLogOut() {
