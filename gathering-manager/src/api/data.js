@@ -39,17 +39,20 @@ export async function getPublicGatheringsPaginated(from, to, tagFilter, dateFilt
     .from("Gatherings")
     .select("*")
     .eq("isPublic", true)
-    //.gt("time", new Date().toLocaleString());
+    .gt("time", new Date().toLocaleString());
 
     if(dateFilter) {
         let startTime = new Date(dateFilter);
         let endTime = new Date(dateFilter);
-        startTime.setHours(0, 0, 0, 1);
-        endTime.setHours(23, 59, 59, 999);
+        console.log(`startTime: ${startTime.toLocaleString()} endTime: ${endTime.toLocaleString()}`)
+        startTime.setHours(0, 0, 1);
+        startTime.setDate(startTime.getDate() + 1);
+        endTime.setHours(23, 59, 59);
+        endTime.setDate(endTime.getDate() + 1);
 
         console.log(`startTime: ${startTime.toLocaleString()} endTime: ${endTime.toLocaleString()}`)
 
-        query = query.gte(startTime.toLocaleString()).lte(endTime.toLocaleString());
+        query = query.gte("time", startTime.toLocaleString()).lte("time", endTime.toLocaleString());
     }
 
     if(tagFilter.length) {
@@ -61,6 +64,8 @@ export async function getPublicGatheringsPaginated(from, to, tagFilter, dateFilt
     }
 
     query = query.range(from, to);
+
+    console.log(query);
 
     const {data, error} = await query;
 

@@ -157,7 +157,7 @@ function Community() {
   const [tagFilter, setTagFilter] = useState([]);
   const [dateFilter, setDateFilter] = useState("");
   const [currentEvents, setCurrentEvents] = useState([]);
-  const [nextPage, setNextPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
   const eventsPerPage = 10;
 
 
@@ -173,8 +173,8 @@ function Community() {
 
     console.log("in nextPage " + dateFilter);
     let data = await getPublicGatheringsPaginated(
-      nextPage + (eventsPerPage * (nextPage - 1)),
-      nextPage + (eventsPerPage * nextPage),
+      (eventsPerPage * (currentPage)),
+      (eventsPerPage * (currentPage + 1) - 1),
       tagFilter,
       dateFilter,
       searchOption
@@ -184,7 +184,7 @@ function Community() {
 
     if (data.length === 0) { return; }
 
-    setNextPage(nextPage + 1);
+    setCurrentPage(currentPage + 1);
     setCurrentEvents(data);
   }
 
@@ -192,8 +192,8 @@ function Community() {
 
 
     let data = await getPublicGatheringsPaginated(
-      nextPage - 1 + (eventsPerPage * (nextPage - 2)),
-      nextPage - 1 + (eventsPerPage * (nextPage - 1)),
+      (eventsPerPage * (currentPage - 2)),
+      (eventsPerPage * (currentPage - 1) - 1),
       tagFilter,
       dateFilter,
       searchOption
@@ -203,18 +203,27 @@ function Community() {
 
     if (data.length === 0) { return; }
 
-    setNextPage(nextPage - 1);
+    setCurrentPage(currentPage - 1);
     setCurrentEvents(data);
   }
   
-  function handleSubmit() {
+  async function handleSubmit() {
     setTagFilter(selectedOptions.map((tag) => tag.value));
     let tmp = document.filters.date.value;
     setDateFilter((tmp ? new Date(tmp).toLocaleDateString() : tmp));
     console.log(document.filters.date.value);
     console.log(new Date(tmp).toLocaleDateString());
-    setNextPage(1);
-    getNextPage();
+    setCurrentPage(1);
+    
+    let data = await getPublicGatheringsPaginated(
+      (eventsPerPage * (0)),
+      (eventsPerPage * (0 + 1) - 1),
+      selectedOptions.map((tag) => tag.value),
+      (tmp ? new Date(tmp).toLocaleDateString() : tmp),
+      searchOption
+    );
+
+    setCurrentEvents(data);
   }
 
   async function rsvp(event) {
