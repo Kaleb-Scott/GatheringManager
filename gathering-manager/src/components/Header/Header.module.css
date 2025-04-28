@@ -1,18 +1,9 @@
-/*header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-}
-
-.navbar {
-    display: flex;
-    min-height: 100px;
-}*/
+/* Code in this file was created by the claude ai */
 .container {
-    font-family: 'Poppins', sans-serif;
-    color: #333;
-    background-color: #f9f9f9;
-  }
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+  background-color: #f9f9f9;
+}
 
 .header {
   position: fixed;
@@ -24,47 +15,105 @@
   z-index: 1000;
 }
 
-  
-  .navbar ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 40px;
-    margin: 0;
-    padding: 0;
+.navContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  width: 95%;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: bold;
+  color: white;
+}
+
+.navMenu {
+  display: flex;
+  align-items: center;
+}
+
+.navLinks {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin: 0;
+  padding: 0;
+}
+
+.navLinks li {
+  font-size: 18px;
+}
+
+.navLinks a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: color 0.3s;
+}
+
+.navLinks a:hover {
+  color: #d1ecf9; /* Lighter blue on hover */
+}
+
+.navLinks svg {
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.navLinks svg:hover {
+  color: #d1ecf9;
+}
+
+/* Mobile menu button (hamburger icon) */
+.mobileMenuButton {
+  display: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+/* Media query for mobile devices */
+@media screen and (max-width: 768px) {
+  .mobileMenuButton {
+      display: block;
+      position: absolute;
+      right: 7%;
+      top: 50%;
+      transform: translateY(-50%);
   }
   
-  .navbar li {
-    font-size: 18px;
+  .navMenu {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 70%;
+      height: 100vh;
+      background-color: #4B9CD3;
+      transition: all 0.3s ease-in-out;
+      z-index: 999;
+      padding-top: 60px;
+      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
   }
   
-  .navbar a {
-    text-decoration: none;
-    color:white;
-    font-weight: bold;
-    transition: color 0.3s;
+  .navMenu.active {
+      right: 0;
   }
   
-  .navbar a:hover {
-    color: #d1ecf9; /* Lighter blue on hover */
+  .navLinks {
+      flex-direction: column;
+      width: 100%;
+      gap: 20px;
   }
   
-  .navbar svg {
-    font-size: 24px;
-    color: white;
-    cursor: pointer;
-    transition: color 0.3s;
+  .navLinks li {
+      width: 100%;
+      text-align: center;
   }
-  
-  .navbar svg:hover {
-    color: #d1ecf9;
-  }
-  .logo {
-    font-size: 28px;
-    font-weight: bold;
-    color: white;
-    align-items: white;
-   
-  }
-  
+}

@@ -153,7 +153,7 @@ const eventsData = [
 function Community() {
   const [availableTags, setAvailableTags] = useState([]);
   const [selectedOptions, setSelectedOptions] = useState([]);
-  const [searchOption, setSearchOption] = useState("");
+  const [searchOption, setSearchOption] = useState("AND");
   const [tagFilter, setTagFilter] = useState([]);
   const [dateFilter, setDateFilter] = useState("");
   const [currentEvents, setCurrentEvents] = useState([]);
