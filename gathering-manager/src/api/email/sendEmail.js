@@ -7,7 +7,7 @@ global.fetch = fetch;
 
 const resend = new Resend('re_dpPa2rhr_HbBrmwZdpv9QHRbpUuzFq6zg');
 
-async function sendEmail(email) {
+export async function sendEmail(email) {
   await resend.emails.send({
     from: 'onboarding@resend.dev',
     to: email,
@@ -17,4 +17,4 @@ async function sendEmail(email) {
   });
 }
 
-export { sendEmail };
+//export { sendEmail };

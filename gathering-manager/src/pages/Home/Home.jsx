@@ -44,6 +44,7 @@ import Header from "../../components/Header/Header";
 import styles from "./Home.module.css";
 
 import welcomesImage from "../../assets/welcomes.jpg";
+//import handler from "../../api/sendReminder";
 
 function HomePage() {
   return (

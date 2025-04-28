@@ -30,7 +30,7 @@
 }
 
 .innerContentBox {
-  background-color: navajowhite;
+  background: linear-gradient(to bottom right, #c4d9e7, #fbfbfb);
   border: 1px solid #dcdcdc;
   border-radius: 12px;
   padding: 20px;
