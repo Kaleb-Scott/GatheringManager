@@ -24,6 +24,9 @@ const GatheringViewPopup = ({ isOpen, onClose, gathering }) => {
                     <div>
                         <p>Public: {gathering.isPublic === "true" ? "Yes" : "No"}</p>
                     </div>
+                    <div>
+                        <p>Attendance Code: {gathering.attendance_code}</p>
+                    </div>
                     <label htmlFor="tags">Tags: </label>
                     <Select 
                     name="tags" 
