@@ -65,7 +65,7 @@ function Header() {
                     <div className={`${styles.navMenu} ${mobileMenuOpen ? styles.active : ''}`}>
                         <ul className={styles.navLinks}>
                             <li onClick={closeMobileMenu}><Link to="/">Home</Link></li>
-                            <li onClick={closeMobileMenu}><Link to="/community">Public Gatherings</Link></li>
+                            <li onClick={closeMobileMenu}><Link to="/community">Community</Link></li>
                             <li onClick={closeMobileMenu}><Link to="/gatherings">Manage Gatherings</Link></li>
                             <li onClick={closeMobileMenu}><Link to="/stats">Statistics</Link></li>
                             <li onClick={closeMobileMenu}>
